@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-yellow: rgb(254 243 199); /* TW: amber-200 */
+  --text-dark: rgb(39 39 42); /* TW: zink-800 */
+  --text-white: #f3f4f6; /* TW: gray-100 */
+}
+
+/* 
+    TW Palette:
+    amber-200 - rgb(254 243 199)
+    orange-400 - rgb(251 146 60)
+    lime-300 - rgb(190 242 100)
+    red-900 - rgb(127 29 29)
+*/
+
+body {
+  background-color: var(--bg-yellow);
+  color: var(--text-dark);
+}
