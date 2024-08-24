@@ -57,4 +57,4 @@
   - Visualizzare più di un viaggio selezionandoli da un menu.
 
 - (BONUS 2)
-  - Integra alcune funzionalità che caratterizzano una Progressive Web Application e che rendono la tua app simile a un’app nativa! Abbiamo parlato di questo durante una masterclass sulle PWA (Progressive Web Apps)
+  - Integra alcune funzionalità che caratterizzano una Progressive Web Application e che rendono la tua app simile a un’app nativa! Abbiamo parlato di questo durante una masterclass sulle PWA (Progressive Web Apps).
