@@ -14,32 +14,56 @@ export default {
         number_of_people: null,
         available_budget: null,
       },
-      errors: null,
+      error: null,
+      formErrors: null,
       success: null,
     };
   },
 
   methods: {
     async submitTrip() {
-      this.errors = null;
+      this.formErrors = null;
+      this.error = null;
       this.success = null;
       try {
         const res = await axios.post(
-          "http://127.0.0.1:8000/api/trips/create",
+          "http://localhost:8000/api/trip",
           this.tripForm
         );
-
-        console.log(res);
-        if (res.data.success) this.success = true;
+        if (res.data.success) {
+          this.success = true;
+          this.resetForm();
+        } else {
+          this.success = false;
+          this.error = res.data.message;
+        }
       } catch (err) {
         console.error(err);
-        this.errors = err.response.data.errors;
+        if (err.response?.status === 422) {
+          this.formErrors = err.response.data.errors;
+        } else if (err.response?.status === 401) {
+          this.error = err.response.data.message;
+        } else {
+          this.error = err.message;
+        }
       }
+    },
+
+    resetForm() {
+      this.tripForm = {
+        name: null,
+        destination: null,
+        departure_date: null,
+        trip_duration: null,
+        number_of_people: null,
+        available_budget: null,
+      };
     },
   },
 };
 </script>
 <template>
+  <h2 class="font-medium text-2xl">Add Trip Form</h2>
   <form class="container mx-auto" @submit.prevent="submitTrip">
     <div>
       <!-- Name -->
@@ -50,6 +74,9 @@ export default {
         type="text"
         placeholder="Trip to London"
       />
+      <p class="text-red-500 text-xl" v-if="formErrors?.name">
+        {{ formErrors.name[0] }}
+      </p>
     </div>
 
     <div>
@@ -61,6 +88,9 @@ export default {
         type="text"
         placeholder="London/England"
       />
+      <p class="text-red-500 text-xl" v-if="formErrors?.destination">
+        {{ formErrors.destination[0] }}
+      </p>
     </div>
 
     <div>
@@ -71,6 +101,9 @@ export default {
         name="departure_date"
         type="date"
       />
+      <p class="text-red-500 text-xl" v-if="formErrors?.departure_date">
+        {{ formErrors.departure_date[0] }}
+      </p>
     </div>
 
     <div>
@@ -81,6 +114,9 @@ export default {
         name="trip_duration"
         type="number"
       />
+      <p class="text-red-500 text-xl" v-if="formErrors?.trip_duration">
+        {{ formErrors.trip_duration[0] }}
+      </p>
     </div>
 
     <div>
@@ -91,6 +127,9 @@ export default {
         name="number_of_people"
         type="number"
       />
+      <p class="text-red-500 text-xl" v-if="formErrors?.number_of_people">
+        {{ formErrors.number_of_people[0] }}
+      </p>
     </div>
 
     <div>
@@ -101,13 +140,18 @@ export default {
         name="available_budget"
         type="number"
       />
+      <p class="text-red-500 text-xl" v-if="formErrors?.available_budget">
+        {{ formErrors.available_budget[0] }}
+      </p>
     </div>
 
-    <button type="submit" class="bg-red-800 p-2 rounded-xl">Add trip</button>
+    <button type="submit" class="bg-red-800 p-2 rounded-xl text-white">
+      Add trip
+    </button>
   </form>
 
-  <p v-if="errors" class="text-xl p-5 font-semibold text-red-500">
-    {{ errors }}
+  <p v-if="error" class="text-xl p-5 font-semibold text-red-500">
+    {{ error }}
   </p>
 
   <p v-if="success" class="text-xl p-5 font-semibold text-green-500">

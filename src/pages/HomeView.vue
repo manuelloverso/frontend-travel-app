@@ -17,7 +17,9 @@ export default {
 </script>
 <template>
   <main class="container mx-auto">
+    <RegisterForm />
     <LoginForm />
+    <AddTripForm />
   </main>
 </template>
 <style scoped></style>

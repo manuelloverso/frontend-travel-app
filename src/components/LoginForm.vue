@@ -11,7 +11,8 @@ export default {
         email: "manuel@gmail.com",
         password: "password",
       },
-      errors: null,
+      formErrors: null,
+      error: null,
     };
   },
 
@@ -23,21 +24,25 @@ export default {
 
   methods: {
     async login() {
-      this.errors = null;
-      await axios.get("http://localhost:8000/sanctum/csrf-cookie");
+      this.formErrors = null;
 
       try {
+        await axios.get("http://localhost:8000/sanctum/csrf-cookie");
         let res = await axios.post(
           "http://localhost:8000/api/login",
           this.data
         );
-        console.log("login response", res);
-
-        store.user = res.data.user;
+        if (res.data.success) {
+          store.user = res.data.user;
+        }
       } catch (err) {
         console.error(err);
         store.user = null;
-        this.errors = err.response.data.errors;
+        if (err.response?.status === 422) {
+          this.formErrors = err.response.data.errors;
+        } else {
+          this.error = err.message;
+        }
       }
     },
   },
@@ -54,8 +59,8 @@ export default {
         name="email"
         placeholder="email"
       />
-      <p v-if="errors?.email" class="text-red-500">
-        {{ errors.email[0] }}
+      <p v-if="formErrors?.email" class="text-red-500">
+        {{ formErrors.email[0] }}
       </p>
     </div>
     <div>
@@ -66,14 +71,16 @@ export default {
         name="password"
         placeholder="password"
       />
-      <p v-if="errors?.password" class="text-red-500">
-        {{ errors.password[0] }}
+      <p v-if="formErrors?.password" class="text-red-500">
+        {{ formErrors.password[0] }}
       </p>
     </div>
     <button class="bg-red-800 text-white p-2 rounded-lg" type="submit">
       Send
     </button>
   </form>
+
+  <p class="text-red-500 text-xl">{{ error }}</p>
 
   <h2 class="text-3xl font-bold" v-if="user">hello {{ user.name }}</h2>
 </template>
