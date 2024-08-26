@@ -16,8 +16,8 @@ export default {
 };
 </script>
 <template>
-  <main>
-    <RegisterForm />
+  <main class="container mx-auto">
+    <LoginForm />
   </main>
 </template>
 <style scoped></style>

@@ -44,6 +44,7 @@ export default {
 };
 </script>
 <template>
+  <h2 class="font-medium text-2xl">Login Form</h2>
   <form @submit.prevent="login">
     <div>
       <label for="email">Type your email</label>
@@ -69,7 +70,9 @@ export default {
         {{ errors.password[0] }}
       </p>
     </div>
-    <button type="submit">Send</button>
+    <button class="bg-red-800 text-white p-2 rounded-lg" type="submit">
+      Send
+    </button>
   </form>
 
   <h2 class="text-3xl font-bold" v-if="user">hello {{ user.name }}</h2>

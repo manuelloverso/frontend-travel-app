@@ -20,38 +20,26 @@ export default {
   },
 
   methods: {
-    submitTrip() {
+    async submitTrip() {
       this.errors = null;
       this.success = null;
-      axios
-        .post("http://127.0.0.1:8000/api/trips/create", this.tripForm)
-        .then((res) => {
-          {
-            console.log(res);
-            if (res.data.success) this.success = true;
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-          this.errors = err.response.data.errors;
-        });
-    },
+      try {
+        const res = await axios.post(
+          "http://127.0.0.1:8000/api/trips/create",
+          this.tripForm
+        );
 
-    justTest() {
-      axios
-        .get("http://localhost:8000/sanctum/csrf-cookie")
-        .then((response) => {
-          console.log(response);
-          axios.get("http://localhost:8000/api/user").then((response) => {
-            console.log(response);
-          });
-        });
+        console.log(res);
+        if (res.data.success) this.success = true;
+      } catch (err) {
+        console.error(err);
+        this.errors = err.response.data.errors;
+      }
     },
   },
 };
 </script>
 <template>
-  <button @click="justTest" class="bg-black">cliccami</button>
   <form class="container mx-auto" @submit.prevent="submitTrip">
     <div>
       <!-- Name -->
