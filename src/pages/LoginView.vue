@@ -1,6 +1,6 @@
 <script>
 import axios from "axios";
-import { store } from "../store.js";
+import { resetForm, store } from "../store.js";
 import AppLoader from "../components/AppLoader.vue";
 import { RouterLink } from "vue-router";
 export default {
@@ -10,8 +10,9 @@ export default {
   },
   data() {
     return {
+      resetForm,
       store,
-      data: {
+      formData: {
         email: null,
         password: null,
       },
@@ -36,9 +37,10 @@ export default {
         await axios.get("http://localhost:8000/sanctum/csrf-cookie");
         let res = await axios.post(
           "http://localhost:8000/api/login",
-          this.data
+          this.formData
         );
         if (res.data.success) {
+          resetForm(this.formData);
           store.user = res.data.user;
         }
       } catch (err) {
@@ -63,11 +65,11 @@ export default {
         Login to see and manage your trips!
       </h2>
       <div
-        class="login-box border-y-4 border-orange-500 w-full md:w-1/3 max-w-md mx-auto"
+        class="login-box border-y-4 border-orange-500 w-full md:w-1/3 max-w-lg mx-auto"
       >
         <form
           v-if="!isLoading"
-          class="login-form flex flex-col items-center"
+          class="flex flex-col items-center"
           @submit.prevent="login"
         >
           <p class="text-red-500 text-2xl mb-6 font-medium">{{ error }}</p>
@@ -76,7 +78,7 @@ export default {
             <label class="text-2xl mb-4" for="email">Type your email</label>
             <input
               class="bg-orange-50 p-2 rounded-lg text-lg"
-              v-model="data.email"
+              v-model="formData.email"
               type="text"
               name="email"
               placeholder="email"
@@ -91,7 +93,7 @@ export default {
             >
             <input
               class="bg-orange-50 p-2 rounded-lg text-lg"
-              v-model="data.password"
+              v-model="formData.password"
               type="text"
               name="password"
               placeholder="password"

@@ -1,13 +1,7 @@
 <script>
-import AddTripForm from "../components/AddTripForm.vue";
-import RegisterForm from "../components/RegisterForm.vue";
-
 export default {
   name: "HomeView",
-  components: {
-    AddTripForm,
-    RegisterForm,
-  },
+  components: {},
   data() {
     return {};
   },
