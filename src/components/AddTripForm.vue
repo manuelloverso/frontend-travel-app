@@ -26,6 +26,8 @@ export default {
       this.error = null;
       this.success = null;
       try {
+        await axios.get("http://localhost:8000/sanctum/csrf-cookie");
+
         const res = await axios.post(
           "http://localhost:8000/api/trip",
           this.tripForm

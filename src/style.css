@@ -1,22 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 :root {
-  --bg-yellow: rgb(254 243 199); /* TW: amber-200 */
+  --bg-white: rgb(248 250 252); /* TW: slate-50 */
   --text-dark: rgb(39 39 42); /* TW: zink-800 */
-  --text-white: #f3f4f6; /* TW: gray-100 */
+  --text-white: #fff; /* TW: white */
+  --accent: rgb(249 115 22); /* TW: orange-500 */
 }
 
 /* 
     TW Palette:
-    amber-200 - rgb(254 243 199)
-    orange-400 - rgb(251 146 60)
-    lime-300 - rgb(190 242 100)
-    red-900 - rgb(127 29 29)
+    orange-500 - rgb(249 115 22)
 */
 
 body {
+  /* font-family: "Rubik", sans-serif; */
   background-color: var(--bg-yellow);
   color: var(--text-dark);
 }

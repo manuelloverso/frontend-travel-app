@@ -6,5 +6,7 @@ export default {
   },
 };
 </script>
-<template></template>
+<template>
+  <main>register</main>
+</template>
 <style scoped></style>
