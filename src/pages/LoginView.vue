@@ -41,11 +41,11 @@ export default {
         );
         if (res.data.success) {
           resetForm(this.formData);
-          store.user = res.data.user;
+          store.setAuthStatus(res.data.user, true, false);
         }
       } catch (err) {
         console.error(err);
-        store.user = null;
+        store.setAuthStatus(null, false, false);
         if (err.response?.status === 422) {
           this.formErrors = err.response.data.errors;
         } else {

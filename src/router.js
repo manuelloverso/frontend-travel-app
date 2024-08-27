@@ -3,6 +3,7 @@ import HomeView from "./pages/HomeView.vue";
 import LoginView from "./pages/LoginView.vue";
 import RegisterView from "./pages/RegisterView.vue";
 import TripsView from "./pages/TripsView.vue";
+import AddTripView from "./pages/AddTripView.vue";
 
 export const routes = [
   {
@@ -27,6 +28,12 @@ export const routes = [
     path: "/trips",
     name: "trips",
     component: TripsView,
+  },
+
+  {
+    path: "/add-trip",
+    name: "add-trip",
+    component: AddTripView,
   },
 ];
 

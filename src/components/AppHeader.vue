@@ -19,7 +19,7 @@ export default {
       try {
         const res = await axios.post(`${store.backendUrl}/api/logout`);
         console.log(res);
-        if (res.data.success) store.user = null;
+        if (res.data.success) store.setAuthStatus(null, false, false);
       } catch (err) {
         console.error(err);
       }
