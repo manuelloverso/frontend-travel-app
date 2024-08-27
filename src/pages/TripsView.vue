@@ -3,13 +3,16 @@ import axios from "axios";
 import AddTripForm from "../components/AddTripForm.vue";
 import LoginAlertMessage from "../components/LoginAlertMessage.vue";
 import OrangeBtn from "../components/OrangeBtn.vue";
+import TripCard from "../components/TripCard.vue";
 import { store } from "../store";
+
 export default {
   name: "TripsView",
   components: {
     AddTripForm,
     OrangeBtn,
     LoginAlertMessage,
+    TripCard,
   },
   data() {
     return {
@@ -58,10 +61,13 @@ export default {
     <!-- showed if the user is logged in -->
     <div v-else>
       <!-- Show here the trips -->
-      <h1>trips</h1>
       <RouterLink :to="{ name: 'add-trip' }">
         <OrangeBtn :isSubmit="false" :isOutline="true" text="Add a new trip" />
       </RouterLink>
+
+      <div class="trips-container flex flex-col gap-24">
+        <TripCard v-for="trip in trips" :tripObj="trip" />
+      </div>
     </div>
   </main>
 </template>

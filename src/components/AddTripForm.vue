@@ -50,12 +50,12 @@ export default {
           store.setAuthStatus(null, false, true);
         }
       } catch (err) {
-        store.setAuthStatus(null, false, true);
         console.error(err);
         if (err.response?.status === 422) {
           this.formErrors = err.response.data.errors;
         } else if (err.response?.status === 401) {
           this.error = err.response.data.message;
+          store.setAuthStatus(null, false, true);
         } else {
           this.error = err.message;
         }
@@ -203,7 +203,10 @@ export default {
 
         <div class="input-group">
           <!-- Image -->
-          <label for="image">Add an image (max 4MB):</label>
+          <label for="image"
+            >Add an image (max 4MB), the ratio should be
+            16:9(horizontal):</label
+          >
           <input name="image" type="file" />
           <p class="text-red-500 text-xl" v-if="formErrors?.image">
             {{ formErrors.image[0] }}
