@@ -1,10 +1,16 @@
 <script>
 import axios from "axios";
+import { store, resetForm } from "../store";
 
 export default {
   name: "AddTripForm",
+  props: {
+    firstTrip: Boolean,
+  },
   data() {
     return {
+      store,
+      resetForm,
       trips: null,
       tripForm: {
         name: null,
@@ -17,19 +23,21 @@ export default {
       error: null,
       formErrors: null,
       success: null,
+      isLoading: false,
     };
   },
 
   methods: {
     async submitTrip() {
+      this.isLoading = true;
       this.formErrors = null;
       this.error = null;
       this.success = null;
       try {
-        await axios.get("http://localhost:8000/sanctum/csrf-cookie");
+        await axios.get(`${store.backendUrl}/sanctum/csrf-cookie`);
 
         const res = await axios.post(
-          "http://localhost:8000/api/trip",
+          `${store.backendUrl}/api/trip`,
           this.tripForm
         );
         if (res.data.success) {
@@ -48,109 +56,145 @@ export default {
         } else {
           this.error = err.message;
         }
+      } finally {
+        this.isLoading = false;
       }
-    },
-
-    resetForm() {
-      this.tripForm = {
-        name: null,
-        destination: null,
-        departure_date: null,
-        trip_duration: null,
-        number_of_people: null,
-        available_budget: null,
-      };
     },
   },
 };
 </script>
 <template>
-  <h2 class="font-medium text-2xl">Add Trip Form</h2>
-  <form class="container mx-auto" @submit.prevent="submitTrip">
-    <div>
-      <!-- Name -->
-      <label for="name">Add a name for the trip</label>
-      <input
-        v-model="tripForm.name"
-        name="name"
-        type="text"
-        placeholder="Trip to London"
-      />
-      <p class="text-red-500 text-xl" v-if="formErrors?.name">
-        {{ formErrors.name[0] }}
-      </p>
-    </div>
+  <h2 class="text-5xl font-semibold text-center mb-12">
+    {{ firstTrip ? "Add your first trip here." : "Add another trip here." }}
+  </h2>
+  <div class="form-box flex flex-wrap bg-white rounded-xl">
+    <div class="w-1/3 bg-orange-500 text-white rounded-xl px-8 pt-24">
+      <h3 class="text-4xl font-medium mb-2 leading-snug">
+        Craft Your Adventure, Day by Day.
+      </h3>
+      <div class="icon-box mx-auto p-8 bg-white rounded-3xl w-32 mb-16">
+        <img class="w-full" src="/public/img/plane-solid.svg" alt="" />
+      </div>
+      <h4 class="text-4xl font-medium mb-2 leading-snug">
+        Create, Share, and Embark on the Perfect Trip.
+      </h4>
+      <div class="icon-box mx-auto p-8 bg-white rounded-3xl w-32 mb-16">
+        <img class="w-full" src="/public/img/umbrella-beach-solid.svg" alt="" />
+      </div>
 
-    <div>
-      <!-- Destination -->
-      <label for="destination">Add a destination</label>
-      <input
-        v-model="tripForm.destination"
-        name="destination"
-        type="text"
-        placeholder="London/England"
-      />
-      <p class="text-red-500 text-xl" v-if="formErrors?.destination">
-        {{ formErrors.destination[0] }}
-      </p>
+      <h4 class="text-4xl font-medium mb-2 leading-snug">
+        Let your family or friends know what's in your mind for this amazing
+        experience
+      </h4>
+      <div class="icon-box mx-auto p-8 bg-white rounded-3xl w-32 mb-16">
+        <img class="w-full" src="/public/img/people-arrows-solid.svg" alt="" />
+      </div>
     </div>
+    <form
+      class="w-2/3 trip-form container mx-auto p-12"
+      @submit.prevent="submitTrip"
+    >
+      <h4 class="text-xl mb-8">
+        Fields marked with an asterisk (*) are required.
+      </h4>
+      <div class="input-group">
+        <!-- Name -->
+        <label for="name">Add a name for the trip*:</label>
+        <input
+          v-model="tripForm.name"
+          name="name"
+          type="text"
+          placeholder="Trip to London"
+        />
+        <p class="text-red-500 text-xl" v-if="formErrors?.name">
+          {{ formErrors.name[0] }}
+        </p>
+      </div>
 
-    <div>
-      <!-- Departure date -->
-      <label for="departure_date">Departure Date</label>
-      <input
-        v-model="tripForm.departure_date"
-        name="departure_date"
-        type="date"
-      />
-      <p class="text-red-500 text-xl" v-if="formErrors?.departure_date">
-        {{ formErrors.departure_date[0] }}
-      </p>
-    </div>
+      <div class="input-group">
+        <!-- Destination -->
+        <label for="destination">Add a destination*:</label>
+        <input
+          v-model="tripForm.destination"
+          name="destination"
+          type="text"
+          placeholder="London/England"
+        />
+        <p class="text-red-500 text-xl" v-if="formErrors?.destination">
+          {{ formErrors.destination[0] }}
+        </p>
+      </div>
 
-    <div>
-      <!-- Trip Duration -->
-      <label for="trip_duration">Days on trip</label>
-      <input
-        v-model="tripForm.trip_duration"
-        name="trip_duration"
-        type="number"
-      />
-      <p class="text-red-500 text-xl" v-if="formErrors?.trip_duration">
-        {{ formErrors.trip_duration[0] }}
-      </p>
-    </div>
+      <div class="input-group">
+        <!-- Departure date -->
+        <label for="departure_date">Departure Date:</label>
+        <input
+          v-model="tripForm.departure_date"
+          name="departure_date"
+          type="date"
+        />
+        <p class="text-red-500 text-xl" v-if="formErrors?.departure_date">
+          {{ formErrors.departure_date[0] }}
+        </p>
+      </div>
 
-    <div>
-      <!-- Number of people on trip -->
-      <label for="number_of_people">Number of people on trip</label>
-      <input
-        v-model="tripForm.number_of_people"
-        name="number_of_people"
-        type="number"
-      />
-      <p class="text-red-500 text-xl" v-if="formErrors?.number_of_people">
-        {{ formErrors.number_of_people[0] }}
-      </p>
-    </div>
+      <div class="input-group">
+        <!-- Trip Duration -->
+        <label for="trip_duration">Days on trip:</label>
+        <input
+          class="w-20"
+          v-model="tripForm.trip_duration"
+          name="trip_duration"
+          type="number"
+          placeholder="7"
+        />
+        <p class="text-red-500 text-xl" v-if="formErrors?.trip_duration">
+          {{ formErrors.trip_duration[0] }}
+        </p>
+      </div>
 
-    <div>
-      <!-- Budget -->
-      <label for="available_budget">Available budget</label>
-      <input
-        v-model="tripForm.available_budget"
-        name="available_budget"
-        type="number"
-      />
-      <p class="text-red-500 text-xl" v-if="formErrors?.available_budget">
-        {{ formErrors.available_budget[0] }}
-      </p>
-    </div>
+      <div class="input-group">
+        <!-- Number of people on trip -->
+        <label for="number_of_people">Number of people on trip:</label>
+        <input
+          class="w-20"
+          v-model="tripForm.number_of_people"
+          name="number_of_people"
+          type="number"
+          placeholder="4"
+        />
+        <p class="text-red-500 text-xl" v-if="formErrors?.number_of_people">
+          {{ formErrors.number_of_people[0] }}
+        </p>
+      </div>
 
-    <button type="submit" class="bg-red-800 p-2 rounded-xl text-white">
-      Add trip
-    </button>
-  </form>
+      <div class="input-group">
+        <!-- Budget -->
+        <label for="available_budget">Available budget (€):</label>
+        <input
+          class="w-20"
+          v-model="tripForm.available_budget"
+          name="available_budget"
+          type="number"
+          placeholder="500"
+        />
+        <p class="text-red-500 text-xl" v-if="formErrors?.available_budget">
+          {{ formErrors.available_budget[0] }}
+        </p>
+      </div>
+
+      <div class="input-group">
+        <!-- Image -->
+        <label for="image">Add an image (max 4MB):</label>
+        <input name="image" type="file" />
+        <p class="text-red-500 text-xl" v-if="formErrors?.image">
+          {{ formErrors.image[0] }}
+        </p>
+      </div>
+
+      <button type="submit" class="submit-btn">Add trip</button>
+    </form>
+  </div>
 
   <p v-if="error" class="text-xl p-5 font-semibold text-red-500">
     {{ error }}
@@ -160,4 +204,49 @@ export default {
     Trip has been saved
   </p>
 </template>
-<style scoped></style>
+<style scoped>
+.icon-box {
+  & img {
+    transition: transform 0.3s ease-in-out;
+  }
+  &:hover {
+    & img {
+      transform: scale(1.2) rotateY(180deg);
+    }
+  }
+}
+
+.form-box {
+  box-shadow: 0 0 10px -4px;
+  .input-group {
+    margin-bottom: 2rem;
+    & label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1.2rem;
+    }
+    & input {
+      border: 1px solid rgb(192, 192, 192);
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 1.2rem;
+    }
+  }
+
+  .submit-btn {
+    background-color: var(--accent);
+    border: 1px solid var(--accent);
+
+    border-radius: 15px;
+    color: white;
+    padding: 10px 40px;
+    font-size: 1.3rem;
+    transition: 0.3s ease;
+
+    &:hover {
+      background-color: white;
+      color: var(--accent);
+    }
+  }
+}
+</style>

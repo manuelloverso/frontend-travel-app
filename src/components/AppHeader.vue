@@ -17,7 +17,7 @@ export default {
   methods: {
     async logout() {
       try {
-        const res = await axios.post("http://localhost:8000/api/logout");
+        const res = await axios.post(`${store.backendUrl}/api/logout`);
         console.log(res);
         if (res.data.success) store.user = null;
       } catch (err) {
@@ -42,6 +42,13 @@ export default {
       class="bg-orange-500 text-gray-100 p-2 text-lg font-semibold rounded-lg"
     >
       Register
+    </RouterLink>
+
+    <RouterLink
+      :to="{ name: 'trips' }"
+      class="bg-orange-500 text-gray-100 p-2 text-lg font-semibold rounded-lg"
+    >
+      My trips
     </RouterLink>
     <button
       @click="logout"

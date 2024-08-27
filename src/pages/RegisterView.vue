@@ -39,9 +39,9 @@ export default {
       this.formErrors = null;
 
       try {
-        await axios.get("http://localhost:8000/sanctum/csrf-cookie");
+        await axios.get(`${store.backendUrl}/sanctum/csrf-cookie`);
         let res = await axios.post(
-          "http://localhost:8000/api/register",
+          `${store.backendUrl}/api/register`,
           this.formData
         );
 
@@ -74,7 +74,7 @@ export default {
         Register to add and manage your trips!
       </h2>
       <div
-        class="register-box border-y-4 border-orange-500 w-full md:w-1/3 max-w-lg mx-auto"
+        class="register-box bg-white border-y-4 border-orange-500 w-full md:w-1/3 max-w-lg mx-auto"
       >
         <form
           v-if="!isLoading"

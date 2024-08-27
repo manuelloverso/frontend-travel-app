@@ -17,7 +17,7 @@ export default {
   },
 
   beforeMount() {
-    axios.get("http://localhost:8000/api/user").then((response) => {
+    axios.get(`${store.backendUrl}/api/user`).then((response) => {
       console.log(response);
       store.user = response.data;
     });

@@ -34,9 +34,9 @@ export default {
       this.formErrors = null;
 
       try {
-        await axios.get("http://localhost:8000/sanctum/csrf-cookie");
+        await axios.get(`${store.backendUrl}/sanctum/csrf-cookie`);
         let res = await axios.post(
-          "http://localhost:8000/api/login",
+          `${store.backendUrl}/api/login`,
           this.formData
         );
         if (res.data.success) {
@@ -65,7 +65,7 @@ export default {
         Login to see and manage your trips!
       </h2>
       <div
-        class="login-box border-y-4 border-orange-500 w-full md:w-1/3 max-w-lg mx-auto"
+        class="login-box border-y-4 border-orange-500 w-full bg-white md:w-1/3 max-w-lg mx-auto"
       >
         <form
           v-if="!isLoading"
