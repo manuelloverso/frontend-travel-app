@@ -1,6 +1,6 @@
 <script>
 import axios from "axios";
-import { store, resetForm } from "../store";
+import { store } from "../store";
 import AppLoader from "./AppLoader.vue";
 
 export default {
@@ -9,7 +9,6 @@ export default {
   data() {
     return {
       store,
-      resetForm,
       trips: null,
       tripForm: {
         name: null,
@@ -21,7 +20,6 @@ export default {
       },
       error: null,
       formErrors: null,
-      success: null,
       isLoading: null,
     };
   },
@@ -37,7 +35,6 @@ export default {
       this.isLoading = true;
       this.formErrors = null;
       this.error = null;
-      this.success = null;
       try {
         await axios.get(`${store.backendUrl}/sanctum/csrf-cookie`);
 
@@ -46,10 +43,9 @@ export default {
           this.tripForm
         );
         if (res.data.success) {
-          this.success = true;
-          this.resetForm();
+          this.$router.push({ name: "trips" });
+          /* add a toast notification */
         } else {
-          this.success = false;
           this.error = res.data.message;
           store.setAuthStatus(null, false, true);
         }
@@ -218,10 +214,6 @@ export default {
       </form>
     </div>
   </div>
-
-  <p v-if="success" class="text-xl p-5 font-semibold text-green-500">
-    Trip has been saved
-  </p>
 </template>
 <style scoped>
 .icon-box {

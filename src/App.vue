@@ -16,11 +16,20 @@ export default {
     };
   },
 
+  methods: {
+    async IsAuthenticated() {
+      try {
+        const res = await axios.get(`${store.backendUrl}/api/user`);
+        store.user = res.data;
+        store.setAuthStatus(res.data, true, false);
+      } catch (err) {
+        console.error(err);
+      }
+    },
+  },
+
   beforeMount() {
-    axios.get(`${store.backendUrl}/api/user`).then((response) => {
-      console.log(response);
-      store.user = response.data;
-    });
+    this.IsAuthenticated();
   },
 };
 </script>
