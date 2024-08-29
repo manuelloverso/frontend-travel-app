@@ -4,8 +4,12 @@ import LoginView from "./pages/LoginView.vue";
 import RegisterView from "./pages/RegisterView.vue";
 import TripsView from "./pages/TripsView.vue";
 import AddTripView from "./pages/AddTripView.vue";
+import SingleTripView from "./pages/SingleTripView.vue";
+import NotFound from "./pages/NotFound.vue";
 
 export const routes = [
+  { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
+
   {
     path: "/",
     name: "home",
@@ -34,6 +38,12 @@ export const routes = [
     path: "/add-trip",
     name: "add-trip",
     component: AddTripView,
+  },
+
+  {
+    path: "/trips/:id",
+    name: "SingleTrip",
+    component: SingleTripView,
   },
 ];
 

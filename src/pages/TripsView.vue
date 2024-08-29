@@ -5,10 +5,12 @@ import LoginAlertMessage from "../components/LoginAlertMessage.vue";
 import OrangeBtn from "../components/OrangeBtn.vue";
 import TripCard from "../components/TripCard.vue";
 import { store } from "../store";
+import AppLoader from "../components/AppLoader.vue";
 
 export default {
   name: "TripsView",
   components: {
+    AppLoader,
     AddTripForm,
     OrangeBtn,
     LoginAlertMessage,
@@ -17,9 +19,16 @@ export default {
   data() {
     return {
       store,
-      trips: [],
       error: null,
+      isLoading: true,
+      noTripsFOund: false,
     };
+  },
+
+  computed: {
+    trips() {
+      return store.trips;
+    },
   },
 
   methods: {
@@ -31,42 +40,68 @@ export default {
         console.log(res);
 
         if (res.data.success) {
-          this.trips = res.data.response;
+          store.trips = res.data.response;
         } else {
-          this.error = res.data.response;
+          /* in the case the user has no trips redirects to the add trip form */
+          this.$router.push("add-trip");
         }
       } catch (err) {
+        store.trips = [];
         console.error(err);
-        if (err.response?.status === 401)
+        if (err.response?.status === 401) {
           /* still have to decide wether to set expired on true or not */
           store.setAuthStatus(null, false, true);
+        } else {
+          this.error = err.message;
+        }
+      } finally {
+        this.isLoading = false;
       }
     },
   },
 
   mounted() {
-    /* if(store.isAuthorized) this.fetchTrips() */
+    if (store.isAuthorized) this.fetchTrips();
   },
 };
 </script>
 <template>
   <main class="container mx-auto py-12">
-    <button @click="fetchTrips" class="p-3 bg-red-500 text-white text-4xl">
-      Fetch trips
-    </button>
+    <!-- Handle the case when the user is not authenticated -->
     <div v-if="!store.isAuthorized">
       <LoginAlertMessage />
     </div>
 
+    <!-- Loader -->
+    <AppLoader v-else-if="isLoading" :minHeight="500" />
+
     <!-- showed if the user is logged in -->
     <div v-else>
-      <!-- Show here the trips -->
-      <RouterLink :to="{ name: 'add-trip' }">
-        <OrangeBtn :isSubmit="false" :isOutline="true" text="Add a new trip" />
-      </RouterLink>
+      <!-- Here handle the case where the trips are fetched correctly and there is at least one trip -->
+      <div v-if="trips.length > 0">
+        <h2 class="text-center font-medium text-5xl">Here's your Trips!</h2>
 
-      <div class="trips-container flex flex-col gap-24">
-        <TripCard v-for="trip in trips" :tripObj="trip" />
+        <div class="text-end mb-24">
+          <RouterLink :to="{ name: 'add-trip' }">
+            <OrangeBtn
+              :isSubmit="false"
+              :isOutline="true"
+              text="Add a new trip"
+            />
+          </RouterLink>
+        </div>
+
+        <div class="trips-container flex flex-col gap-24">
+          <TripCard v-for="trip in trips" :tripObj="trip" />
+        </div>
+      </div>
+
+      <!-- Here show an error message if the fetch failed  -->
+      <div
+        class="text-3xl vh80 flex items-centr justify-center font-semibold text-center text-red-500"
+        v-else-if="error"
+      >
+        <span>{{ error }}</span>
       </div>
     </div>
   </main>

@@ -1,6 +1,12 @@
 <script>
+import { RouterLink } from "vue-router";
+import OrangeBtn from "./OrangeBtn.vue";
+
 export default {
   name: "TripCard",
+  components: {
+    OrangeBtn,
+  },
   props: {
     tripObj: Object,
   },
@@ -36,10 +42,14 @@ export default {
         <span class="text-orange-600"> {{ tripObj.duration }}</span>
       </p>
 
-      <p v-if="tripObj.available_budget" class="text-lg">
+      <p v-if="tripObj.available_budget" class="text-lg mb-6">
         Available Budget:
         <span class="text-orange-600"> {{ tripObj.available_budget }}€</span>
       </p>
+
+      <RouterLink :to="'trips/' + tripObj.id">
+        <OrangeBtn :isOutline="true" :isSubmit="false" text="See More" />
+      </RouterLink>
     </div>
   </div>
 </template>

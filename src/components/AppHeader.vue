@@ -32,27 +32,27 @@ export default {
     <RouterLink :to="{ name: 'home' }"><AppLogo :withText="true" /></RouterLink>
     <RouterLink
       :to="{ name: 'login' }"
-      class="bg-orange-500 text-gray-100 p-2 text-lg font-semibold rounded-lg"
+      class="bg-orange-500 text-white p-2 text-lg font-semibold rounded-lg"
     >
       Login
     </RouterLink>
 
     <RouterLink
       :to="{ name: 'register' }"
-      class="bg-orange-500 text-gray-100 p-2 text-lg font-semibold rounded-lg"
+      class="bg-orange-500 text-white p-2 text-lg font-semibold rounded-lg"
     >
       Register
     </RouterLink>
 
     <RouterLink
       :to="{ name: 'trips' }"
-      class="bg-orange-500 text-gray-100 p-2 text-lg font-semibold rounded-lg"
+      class="bg-orange-500 text-white p-2 text-lg font-semibold rounded-lg"
     >
       My trips
     </RouterLink>
     <button
       @click="logout"
-      class="bg-orange-500 text-gray-100 p-2 text-lg font-semibold rounded-lg"
+      class="bg-orange-500 text-white p-2 text-lg font-semibold rounded-lg"
     >
       Logout
     </button>

@@ -30,3 +30,7 @@ body {
   background-color: var(--bg-white);
   color: var(--text-dark);
 }
+
+.vh-80 {
+  min-height: 80vh;
+}
