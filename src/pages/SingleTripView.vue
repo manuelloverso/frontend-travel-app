@@ -4,6 +4,7 @@ import axios from "axios";
 import AppLoader from "../components/AppLoader.vue";
 import LoginAlertMessage from "../components/LoginAlertMessage.vue";
 import TripShow from "../components/TripShow.vue";
+import TripDays from "../components/TripDays.vue";
 
 export default {
   name: "SingleTripView",
@@ -11,6 +12,7 @@ export default {
     AppLoader,
     LoginAlertMessage,
     TripShow,
+    TripDays,
   },
   data() {
     return {
@@ -74,6 +76,8 @@ export default {
       <div v-if="!isAuthorized"><LoginAlertMessage /></div>
       <div v-if="isAuthorized && trip" class="trip">
         <TripShow :trip="trip" />
+
+        <TripDays :trip="trip" />
       </div>
     </div>
   </main>

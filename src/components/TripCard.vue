@@ -16,7 +16,7 @@ export default {
 };
 </script>
 <template>
-  <div class="trip-card flex rounded-xl">
+  <div class="trip-card flex bg-white rounded-xl">
     <div class="bg-orange-600 rounded-xl img-box w-1/3">
       <img class="w-full rounded-xl" :src="tripObj.image" :alt="tripObj.name" />
     </div>

@@ -59,7 +59,7 @@ export default {
 };
 </script>
 <template>
-  <div class="container mx-auto trip-show">
+  <div class="container mx-auto trip-show mb-32">
     <h2 class="text-center text-5xl font-semibold mb-8">{{ trip.name }}</h2>
 
     <div class="map-destination flex gap-3 items-center mb-12">
@@ -89,7 +89,7 @@ export default {
 
     <div
       v-if="trip.available_budget"
-      class="budget flex justify-evenly items-center mb-24"
+      class="budget flex justify-evenly items-center"
     >
       <h5 class="text-3xl w-1/3 text-center">Available budget:</h5>
       <div class="graph bg-green-700 w-1/3 h-80">

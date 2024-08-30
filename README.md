@@ -58,3 +58,15 @@
 
 - (BONUS 2)
   - Integra alcune funzionalità che caratterizzano una Progressive Web Application e che rendono la tua app simile a un’app nativa! Abbiamo parlato di questo durante una masterclass sulle PWA (Progressive Web Apps).
+
+## TODOs
+
+- fix header
+- add crud for trips days and stops
+- add images for stops and trips(use modals to show them and maybe to add them too)
+- check which fields have to be mandatory in days and stops tables
+- add graph for budget
+- add map for trip destination
+- add map for stops
+- handle day management for when the trip is in the past
+- add back button

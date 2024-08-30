@@ -6,5 +6,7 @@ export default {
   },
 };
 </script>
-<template><h1 class="text-center text-4xl">404 | Not Found</h1></template>
+<template>
+  <main><h1 class="text-center text-4xl">404 | Not Found</h1></main>
+</template>
 <style scoped></style>
