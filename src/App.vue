@@ -20,7 +20,6 @@ export default {
     async IsAuthenticated() {
       try {
         const res = await axios.get(`${store.backendUrl}/api/user`);
-        store.user = res.data;
         store.setAuthStatus(res.data, true, false);
       } catch (err) {
         console.error(err);

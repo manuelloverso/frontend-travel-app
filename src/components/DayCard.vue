@@ -1,6 +1,9 @@
 <script>
+import axios from "axios";
+import { store } from "../store";
 import OrangeBtn from "./OrangeBtn.vue";
 import StopCard from "./StopCard.vue";
+import AddDayModal from "./AddDayModal.vue";
 
 export default {
   name: "DayCard",
@@ -11,12 +14,25 @@ export default {
   components: {
     StopCard,
     OrangeBtn,
+    AddDayModal,
   },
   data() {
-    return {};
+    return {
+      store,
+      isModalOpen: true,
+    };
   },
-  mounted() {
-    console.log(this.tripDay);
+
+  methods: {
+    async isAuthenticated() {
+      try {
+        await axios.get(`${store.backendUrl}/api/user`);
+        store.setDayModal(true, this.dayNumber, this.$route.params.id);
+      } catch (err) {
+        console.error(err);
+        if (err.response.status === 401) store.setAuthStatus(null, false, true);
+      }
+    },
   },
 };
 </script>
@@ -57,10 +73,16 @@ export default {
     </p>
   </div>
 
-  <div class="empty-day-card" v-else>
-    <h4 class="text-center text-4xl font-medium">
+  <div class="empty-day-card text-center" v-else>
+    <h4 class="text-4xl font-medium mb-6">
       You've nothing planned for day {{ dayNumber }} yet.
     </h4>
+    <OrangeBtn
+      @click="isAuthenticated"
+      :isOutline="true"
+      :isSubmit="false"
+      text="Handle your day"
+    />
   </div>
 </template>
 <style scoped>

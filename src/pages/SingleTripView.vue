@@ -5,6 +5,7 @@ import AppLoader from "../components/AppLoader.vue";
 import LoginAlertMessage from "../components/LoginAlertMessage.vue";
 import TripShow from "../components/TripShow.vue";
 import TripDays from "../components/TripDays.vue";
+import AddDayModal from "../components/AddDayModal.vue";
 
 export default {
   name: "SingleTripView",
@@ -13,6 +14,7 @@ export default {
     LoginAlertMessage,
     TripShow,
     TripDays,
+    AddDayModal,
   },
   data() {
     return {
@@ -37,9 +39,9 @@ export default {
         const res = await axios.get(
           `${store.backendUrl}/api/trips/${this.tripId}`
         );
-        console.log(res);
         if (res.data.success) {
           this.trip = res.data.response;
+          console.log(res.data.response.days);
         } else {
           this.$router.push({ name: "NotFound" });
         }
@@ -81,5 +83,7 @@ export default {
       </div>
     </div>
   </main>
+  <!-- Add day Modal -->
+  <AddDayModal />
 </template>
 <style scoped></style>

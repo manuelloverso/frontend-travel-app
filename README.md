@@ -71,3 +71,9 @@
 - add map for stops
 - handle day management for when the trip is in the past
 - add back button
+- add all frontend validations
+- add toast confirm messages
+- handle day creation by closing the modal and showing some toast sucess message
+- add loader when clicking on handle day
+- do some backend validation to aavoid days being created with the same day_number for the same trip
+- add something else in the day table/creation form
