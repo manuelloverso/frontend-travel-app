@@ -12,7 +12,6 @@ export default {
     return {
       store,
       resetForm,
-
       isDayCreated: false,
       isLoading: false,
       error: null,
@@ -78,8 +77,6 @@ export default {
         dayNumber: null,
         tripId: null,
       };
-
-      resetForm(this.inputFields);
     },
   },
 };
@@ -87,7 +84,7 @@ export default {
 <template>
   <div @click="closeModal" v-if="isOpen" class="backdrop"></div>
   <div v-if="isOpen" class="modal">
-    <h3 class="text-2xl font-medium mb-4">
+    <h3 class="text-3xl font-medium mb-6">
       Manage your day {{ dayNumber }} here
     </h3>
 
@@ -101,23 +98,32 @@ export default {
     <AppLoader v-if="isLoading" :minHeight="500" />
 
     <form v-else @submit.prevent="addDay">
-      <div>
-        <label for="notes">Notes:</label>
-        <input v-model="inputFields.notes" name="notes" type="text" />
+      <div class="flex flex-col gap-2 mb-6">
+        <label class="text-xl" for="notes">Notes:</label>
+        <textarea
+          v-model="inputFields.notes"
+          class="bg-orange-50 p-2 rounded-lg text-lg"
+          name="notes"
+          type="text"
+          placeholder="Add some notes.."
+        >
+        </textarea>
         <p class="text-red-500 text-xl" v-if="formErrors?.notes">
           {{ formErrors.notes[0] }}
         </p>
       </div>
 
-      <div>
-        <label for="rating"
+      <div class="flex flex-col gap-2 mb-6">
+        <label for="rating" class="text-xl"
           >Do you wanna rate this already? You can change this later</label
         >
         <input
           v-model="inputFields.rating"
+          class="bg-orange-50 p-2 rounded-lg text-lg"
           type="number"
           name="rating"
           id="rating"
+          placeholder="4"
         />
         <p class="text-red-500 text-xl" v-if="formErrors?.rating">
           {{ formErrors.rating[0] }}
@@ -140,12 +146,15 @@ export default {
 </template>
 <style scoped>
 .modal {
+  width: 70vw;
   padding: 2rem;
   border-radius: 10px;
   background-color: white;
   position: fixed;
   top: 50%;
   left: 50%;
+  max-height: 90vh;
+  overflow-y: auto;
   transform: translate(-50%, -50%);
   z-index: 3;
 }
@@ -157,5 +166,32 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.542);
   z-index: 2;
+}
+
+.add-stop-btn {
+  padding: 10px;
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  width: 300px;
+  margin-bottom: 25px;
+
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+
+  & span {
+    transition: 0.2s ease;
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+
+  &:hover {
+    /*     background-color: var(--accent); */
+
+    & span {
+      letter-spacing: 1px;
+    }
+  }
 }
 </style>

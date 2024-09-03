@@ -60,6 +60,12 @@ export default {
     },
   },
 
+  watch: {
+    "store.isAuthorized"(newVal) {
+      if (newVal) this.fetchTrips();
+    },
+  },
+
   mounted() {
     if (store.isAuthorized) this.fetchTrips();
   },
@@ -92,7 +98,7 @@ export default {
         </div>
 
         <div class="trips-container flex flex-col gap-24">
-          <TripCard v-for="trip in trips" :tripObj="trip" />
+          <TripCard v-for="trip in trips" :tripObj="trip" :key="trip.id" />
         </div>
       </div>
 

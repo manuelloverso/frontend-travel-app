@@ -12,6 +12,11 @@ export const store = reactive({
     tripId: null,
   },
 
+  stopModal: {
+    isOpen: false,
+    dayId: null,
+  },
+
   /**
    * save user data and set auth status
    * @param {object} user save user data
@@ -35,6 +40,16 @@ export const store = reactive({
     this.dayModal.isOpen = isOpen;
     this.dayModal.dayNumber = dayNumber;
     this.dayModal.tripId = tripId;
+  },
+
+  /**
+   *
+   * @param {Boolean} isOpen show the modal
+   * @param {Number} dayId the day related to the stop
+   */
+  setStopModal(isOpen, dayId) {
+    this.stopModal.isOpen = isOpen;
+    this.stopModal.dayId = dayId;
   },
 });
 

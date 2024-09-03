@@ -22,18 +22,6 @@ export default {
       isModalOpen: true,
     };
   },
-
-  methods: {
-    async isAuthenticated() {
-      try {
-        await axios.get(`${store.backendUrl}/api/user`);
-        store.setDayModal(true, this.dayNumber, this.$route.params.id);
-      } catch (err) {
-        console.error(err);
-        if (err.response.status === 401) store.setAuthStatus(null, false, true);
-      }
-    },
-  },
 };
 </script>
 <template>
@@ -47,22 +35,13 @@ export default {
 
     <!-- Handle day stops -->
     <div class="stops mb-8">
-      <div v-if="tripDay.stops.length === 0">
-        <h5 class="text-xl mb-4">
-          <span class="text-orange-600">Stops: </span>You haven't added any stop
-          yet
-        </h5>
-        <OrangeBtn
-          :isOutline="true"
-          :isSubmit="false"
-          text="Add your first stop"
-        />
-      </div>
-
-      <div v-else>
-        <h5 class="text-xl mb-4 text-orange-600">Stops:</h5>
-        <div class="row flex gap-8">
-          <StopCard class="w-1/4" v-for="stop in tripDay.stops" :stop="stop" />
+      <h5 class="text-2xl mb-4 text-center text-orange-500">
+        Stops for this day:
+      </h5>
+      <div class="row flex gap-8">
+        <StopCard class="w-1/4" v-for="stop in tripDay.stops" :stop="stop" />
+        <div class="add-stop" @click="store.setStopModal(true, tripDay.id)">
+          <img class="w-8" src="/public/img/plus-solid.svg" alt="plus-solid" />
         </div>
       </div>
     </div>
@@ -78,7 +57,7 @@ export default {
       You've nothing planned for day {{ dayNumber }} yet.
     </h4>
     <OrangeBtn
-      @click="isAuthenticated"
+      @click="store.setDayModal(true, dayNumber, $route.params.id)"
       :isOutline="true"
       :isSubmit="false"
       text="Handle your day"
@@ -92,5 +71,26 @@ export default {
   padding: 3rem;
   border-radius: 20px;
   box-shadow: var(--accent) 0 0 10px -4px;
+}
+
+.add-stop {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 0;
+  width: calc(100% / 4);
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+
+  & > img {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    & > img {
+      transform: scale(1.4);
+    }
+  }
 }
 </style>

@@ -13,6 +13,14 @@ export default {
   data() {
     return {};
   },
+
+  methods: {
+    getCorrectDay(dayNumber) {
+      const day = this.trip.days.find((d) => d.day_number === dayNumber);
+      // If found, return the day object, otherwise return null
+      return day || null;
+    },
+  },
 };
 </script>
 <template>
@@ -21,7 +29,8 @@ export default {
   <div class="container mx-auto flex flex-col gap-24">
     <DayCard
       v-for="n in trip.trip_duration"
-      :tripDay="trip.days[n - 1]"
+      :key="n"
+      :tripDay="getCorrectDay(n)"
       :dayNumber="n"
     />
   </div>

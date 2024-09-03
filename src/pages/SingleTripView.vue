@@ -6,6 +6,7 @@ import LoginAlertMessage from "../components/LoginAlertMessage.vue";
 import TripShow from "../components/TripShow.vue";
 import TripDays from "../components/TripDays.vue";
 import AddDayModal from "../components/AddDayModal.vue";
+import AddStopModal from "../components/AddStopModal.vue";
 
 export default {
   name: "SingleTripView",
@@ -15,6 +16,7 @@ export default {
     TripShow,
     TripDays,
     AddDayModal,
+    AddStopModal,
   },
   data() {
     return {
@@ -83,7 +85,15 @@ export default {
       </div>
     </div>
   </main>
-  <!-- Add day Modal -->
-  <AddDayModal />
+
+  <!-- Add Day Modal -->
+  <template v-if="store.dayModal.isOpen">
+    <AddDayModal />
+  </template>
+
+  <!-- Add stop Modal -->
+  <template v-if="store.stopModal.isOpen">
+    <AddStopModal />
+  </template>
 </template>
 <style scoped></style>
