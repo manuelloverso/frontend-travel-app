@@ -1,11 +1,21 @@
 <script>
+import { store } from "../store";
+
 export default {
   name: "StopCard",
   props: {
     stop: Object,
   },
   data() {
-    return {};
+    return {
+      store,
+    };
+  },
+
+  methods: {
+    openModal() {
+      store.setDeleteStopModal(true, this.stop.id);
+    },
   },
 };
 </script>
@@ -25,11 +35,18 @@ export default {
       <span class="text-xl font-medium">Type🏡:</span> {{ stop.type }}
     </p>
 
-    <p class="text-lg" v-if="stop.rating">
+    <p class="text-lg mb-4" v-if="stop.rating">
       <span class="text-xl font-medium">Rating⭐:</span> {{ stop.rating }}
     </p>
 
-    <div class="actions"></div>
+    <div class="actions">
+      <button
+        class="p-3 rounded-lg bg-red-500 hover:bg-red-700 transition-colors"
+        @click="openModal"
+      >
+        <img class="w-5" src="/public/img/trash-solid.svg" alt="trash can" />
+      </button>
+    </div>
   </div>
 </template>
 <style scoped></style>

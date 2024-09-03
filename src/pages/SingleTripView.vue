@@ -7,6 +7,7 @@ import TripShow from "../components/TripShow.vue";
 import TripDays from "../components/TripDays.vue";
 import AddDayModal from "../components/AddDayModal.vue";
 import AddStopModal from "../components/AddStopModal.vue";
+import DeleteStopModal from "../components/deleteStopModal.vue";
 
 export default {
   name: "SingleTripView",
@@ -17,6 +18,7 @@ export default {
     TripDays,
     AddDayModal,
     AddStopModal,
+    DeleteStopModal,
   },
   data() {
     return {
@@ -94,6 +96,11 @@ export default {
   <!-- Add stop Modal -->
   <template v-if="store.stopModal.isOpen">
     <AddStopModal />
+  </template>
+
+  <!-- delete stop Modal -->
+  <template v-if="store.deleteStopModal.isOpen">
+    <DeleteStopModal />
   </template>
 </template>
 <style scoped></style>

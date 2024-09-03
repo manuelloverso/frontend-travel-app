@@ -22,6 +22,11 @@ export const store = reactive({
     tripObj: null,
   },
 
+  deleteStopModal: {
+    isOpen: false,
+    stopId: null,
+  },
+
   /**
    * save user data and set auth status
    * @param {object} user save user data
@@ -60,11 +65,21 @@ export const store = reactive({
   /**
    *
    * @param {Boolean} isOpen show the modal
-   * @param {Number} tripObj the trip selected
+   * @param {Object} tripObj the trip selected
    */
   setDeleteTripModal(isOpen, tripObj) {
     this.deleteTripModal.isOpen = isOpen;
     this.deleteTripModal.tripObj = tripObj;
+  },
+
+  /**
+   *
+   * @param {Boolean} isOpen show the modal
+   * @param {Number} stopId the id of the selected stop
+   */
+  setDeleteStopModal(isOpen, stopId) {
+    this.deleteStopModal.isOpen = isOpen;
+    this.deleteStopModal.stopId = stopId;
   },
 });
 
