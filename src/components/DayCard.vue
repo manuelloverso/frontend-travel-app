@@ -27,7 +27,7 @@ export default {
 <template>
   <div class="day-card" v-if="tripDay">
     <h4 class="text-center text-4xl font-medium mb-12">
-      Here's your day {{ dayNumber }}
+      Here's your day <span class="text-orange-500">{{ dayNumber }}</span>
     </h4>
     <p class="text-lg mb-8" v-if="tripDay?.notes">
       <span class="text-orange-600">Notes: </span>{{ tripDay.notes }}
@@ -38,8 +38,10 @@ export default {
       <h5 class="text-2xl mb-4 text-center text-orange-500">
         Stops for this day:
       </h5>
-      <div class="row flex gap-8">
-        <StopCard class="w-1/4" v-for="stop in tripDay.stops" :stop="stop" />
+      <div class="row flex flex-wrap gap-y-8">
+        <div class="my-col w-1/4 p-4" v-for="stop in tripDay.stops">
+          <StopCard class="h-full" :stop="stop" />
+        </div>
         <div class="add-stop" @click="store.setStopModal(true, tripDay.id)">
           <img class="w-8" src="/public/img/plus-solid.svg" alt="plus-solid" />
         </div>
@@ -54,7 +56,8 @@ export default {
 
   <div class="empty-day-card text-center" v-else>
     <h4 class="text-4xl font-medium mb-6">
-      You've nothing planned for day {{ dayNumber }} yet.
+      You've nothing planned for day
+      <span class="text-orange-500">{{ dayNumber }}</span> yet.
     </h4>
     <OrangeBtn
       @click="store.setDayModal(true, dayNumber, $route.params.id)"
@@ -79,6 +82,7 @@ export default {
   justify-content: center;
   align-items: center;
   padding: 3rem 0;
+  margin: 20px;
   width: calc(100% / 4);
   border: 1px solid var(--accent);
   border-radius: 20px;

@@ -1,6 +1,7 @@
 <script>
 import { RouterLink } from "vue-router";
 import OrangeBtn from "./OrangeBtn.vue";
+import { store } from "../store";
 
 export default {
   name: "TripCard",
@@ -11,7 +12,15 @@ export default {
     tripObj: Object,
   },
   data() {
-    return {};
+    return {
+      store,
+    };
+  },
+
+  methods: {
+    openModal() {
+      store.setDeleteTripModal(true, this.tripObj);
+    },
   },
 };
 </script>
@@ -47,9 +56,18 @@ export default {
         <span class="text-orange-600"> {{ tripObj.available_budget }}€</span>
       </p>
 
-      <RouterLink :to="'trips/' + tripObj.id">
-        <OrangeBtn :isOutline="true" :isSubmit="false" text="See More" />
-      </RouterLink>
+      <div class="actions flex items-center justify-between">
+        <RouterLink :to="'trips/' + tripObj.id">
+          <OrangeBtn :isOutline="true" :isSubmit="false" text="See More" />
+        </RouterLink>
+
+        <button
+          @click="openModal"
+          class="bg-red-500 text-white p-3 text-lg rounded-lg hover:bg-red-700 transition-colors"
+        >
+          Delete trip
+        </button>
+      </div>
     </div>
   </div>
 </template>

@@ -22,7 +22,7 @@ export default {
 <style scoped>
 button {
   border: 1px solid var(--accent);
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 10px 25px;
   transition: 0.2s ease;
   font-size: 1.2rem;

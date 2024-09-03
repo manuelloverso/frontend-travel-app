@@ -17,6 +17,11 @@ export const store = reactive({
     dayId: null,
   },
 
+  deleteTripModal: {
+    isOpen: false,
+    tripObj: null,
+  },
+
   /**
    * save user data and set auth status
    * @param {object} user save user data
@@ -50,6 +55,16 @@ export const store = reactive({
   setStopModal(isOpen, dayId) {
     this.stopModal.isOpen = isOpen;
     this.stopModal.dayId = dayId;
+  },
+
+  /**
+   *
+   * @param {Boolean} isOpen show the modal
+   * @param {Number} tripObj the trip selected
+   */
+  setDeleteTripModal(isOpen, tripObj) {
+    this.deleteTripModal.isOpen = isOpen;
+    this.deleteTripModal.tripObj = tripObj;
   },
 });
 

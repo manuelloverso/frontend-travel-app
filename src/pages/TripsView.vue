@@ -6,6 +6,7 @@ import OrangeBtn from "../components/OrangeBtn.vue";
 import TripCard from "../components/TripCard.vue";
 import { store } from "../store";
 import AppLoader from "../components/AppLoader.vue";
+import DeleteTripModal from "../components/DeleteTripModal.vue";
 
 export default {
   name: "TripsView",
@@ -15,6 +16,7 @@ export default {
     OrangeBtn,
     LoginAlertMessage,
     TripCard,
+    DeleteTripModal,
   },
   data() {
     return {
@@ -111,5 +113,10 @@ export default {
       </div>
     </div>
   </main>
+
+  <!-- confirm modal to delete trip -->
+  <template v-if="store.deleteTripModal.isOpen">
+    <DeleteTripModal />
+  </template>
 </template>
 <style scoped></style>
