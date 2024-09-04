@@ -17,7 +17,7 @@ export default {
 };
 </script>
 <template>
-  <main class="container mx-auto py-12">
+  <main class="container mx-auto">
     <div v-if="store.isAuthorized">
       <AddTripForm />
     </div>

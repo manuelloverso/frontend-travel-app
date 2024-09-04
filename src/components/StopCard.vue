@@ -20,7 +20,7 @@ export default {
 };
 </script>
 <template>
-  <div class="stop-card bg-orange-500 text-white rounded-xl p-8">
+  <div class="stop-card bg-emerald-600 text-white rounded-xl p-8">
     <h5 class="text-3xl text-center mb-4">{{ stop.location }}</h5>
 
     <p class="text-lg mb-4" v-if="stop.address">

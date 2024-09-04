@@ -13,22 +13,46 @@
   --bg-white: rgba(255, 239, 234, 0.247);
   --text-dark: rgb(82 82 91); /* TW: zink-600 */
   --text-white: #fbfbfb; /* TW: white */
-  --accent: rgb(249 115 22); /* TW: orange-500 */
+  --accent: rgb(5 150 105); /* TW: emerald-600 */
 }
 
 /* 
     TW Palette:
-    orange-500 - rgb(249 115 22)
+    emerald-600 - rgb(5 150 105)
 */
 
 html {
   scroll-behavior: smooth;
 }
 
+::-webkit-scrollbar {
+  width: 8px; /* Width of the vertical scrollbar */
+  height: 8px; /* Height of the horizontal scrollbar */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #dfdddd; /* Background of the scrollbar track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--accent); /* Color of the scrollbar thumb */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ff3c00; /* Color of the scrollbar thumb when*/
+}
+
 body {
   font-family: "Inter", sans-serif;
   background-color: var(--bg-white);
   color: var(--text-dark);
+}
+
+main {
+  padding-top: 200px;
 }
 
 .vh-80 {

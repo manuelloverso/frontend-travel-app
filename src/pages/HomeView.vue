@@ -8,6 +8,19 @@ export default {
 };
 </script>
 <template>
-  <main class="container mx-auto">HOME</main>
+  <div class="hero">
+    <img src="/public/img/hero-img.jpg" alt="flight pic" />
+  </div>
+  <main></main>
 </template>
-<style scoped></style>
+<style scoped>
+.hero {
+  & img {
+    min-height: 70vh;
+    max-height: 100vh;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+</style>

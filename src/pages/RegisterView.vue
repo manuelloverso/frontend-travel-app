@@ -68,13 +68,13 @@ export default {
 };
 </script>
 <template>
-  <main class="container mx-auto pt-12 pb-24">
+  <main class="container mx-auto pb-24">
     <div v-if="!user" class="text-center">
       <h2 class="font-medium text-5xl mb-12">
         Register to add and manage your trips!
       </h2>
       <div
-        class="register-box bg-white border-y-4 border-orange-500 w-full md:w-1/3 max-w-lg mx-auto"
+        class="register-box bg-white border-y-4 border-emerald-600 w-full md:w-1/3 max-w-lg mx-auto"
       >
         <form
           v-if="!isLoading"
@@ -85,7 +85,7 @@ export default {
           <div class="flex flex-col items-center mb-8">
             <label class="text-2xl mb-4" for="name">Type your name</label>
             <input
-              class="bg-orange-50 p-2 rounded-lg text-lg"
+              class="bg-emerald-50 p-2 rounded-lg text-lg"
               v-model="formData.name"
               type="text"
               name="name"
@@ -98,7 +98,7 @@ export default {
           <div class="flex flex-col items-center mb-8">
             <label class="text-2xl mb-4" for="email">Type your email</label>
             <input
-              class="bg-orange-50 p-2 rounded-lg text-lg"
+              class="bg-emerald-50 p-2 rounded-lg text-lg"
               v-model="formData.email"
               type="text"
               name="email"
@@ -113,7 +113,7 @@ export default {
               >Type your password</label
             >
             <input
-              class="bg-orange-50 p-2 rounded-lg text-lg"
+              class="bg-emerald-50 p-2 rounded-lg text-lg"
               v-model="formData.password"
               type="text"
               name="password"
@@ -129,7 +129,7 @@ export default {
               >Confirm your password</label
             >
             <input
-              class="bg-orange-50 p-2 rounded-lg text-lg"
+              class="bg-emerald-50 p-2 rounded-lg text-lg"
               v-model="formData.password_confirmation"
               type="text"
               name="password_confirmation"
@@ -140,13 +140,13 @@ export default {
             </p>
           </div>
           <button
-            class="bg-orange-500 text-lg font-medium text-white p-3 rounded-lg mb-3"
+            class="bg-emerald-600 text-lg font-medium text-white p-3 rounded-lg mb-3"
             type="submit"
           >
             Confirm
           </button>
 
-          <p class="text-orange-600 text-lg">
+          <p class="text-emerald-600 text-lg">
             Already registered?
             <RouterLink :to="{ name: 'login' }" class="underline"
               >Login here</RouterLink

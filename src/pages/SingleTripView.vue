@@ -70,7 +70,7 @@ export default {
 };
 </script>
 <template>
-  <main class="py-24">
+  <main>
     <h3
       class="text-red-500 text-4xl font-semibold py-8 text-center"
       v-if="error"

@@ -2,11 +2,13 @@
 import axios from "axios";
 import { store, resetForm } from "../store";
 import AppLoader from "./AppLoader.vue";
+import OrangeBtn from "./OrangeBtn.vue";
 
 export default {
   name: "AddDayModal",
   components: {
     AppLoader,
+    OrangeBtn,
   },
   data() {
     return {
@@ -19,6 +21,8 @@ export default {
 
       inputFields: {
         notes: null,
+        title: null,
+        weather: null,
         rating: null,
       },
     };
@@ -84,7 +88,7 @@ export default {
 <template>
   <div @click="closeModal" v-if="isOpen" class="backdrop"></div>
   <div v-if="isOpen" class="modal">
-    <h3 class="text-3xl font-medium mb-6">
+    <h3 class="text-3xl font-medium mb-6 text-center">
       Manage your day {{ dayNumber }} here
     </h3>
 
@@ -99,10 +103,42 @@ export default {
 
     <form v-else @submit.prevent="addDay">
       <div class="flex flex-col gap-2 mb-6">
+        <label for="title" class="text-xl">Add a title for this day</label>
+        <input
+          v-model="inputFields.title"
+          class="bg-emerald-50 p-2 rounded-lg text-lg"
+          type="text"
+          name="title"
+          id="title"
+          placeholder="A day in the suburbs"
+        />
+        <p class="text-red-500 text-xl" v-if="formErrors?.title">
+          {{ formErrors.title[0] }}
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-2 mb-6">
+        <label for="weather" class="text-xl"
+          >What will the weather be like?</label
+        >
+        <input
+          v-model="inputFields.weather"
+          class="bg-emerald-50 p-2 rounded-lg text-lg"
+          type="text"
+          name="weather"
+          id="weather"
+          placeholder="It'll be a cloudy day"
+        />
+        <p class="text-red-500 text-xl" v-if="formErrors?.weather">
+          {{ formErrors.weather[0] }}
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-2 mb-6">
         <label class="text-xl" for="notes">Notes:</label>
         <textarea
           v-model="inputFields.notes"
-          class="bg-orange-50 p-2 rounded-lg text-lg"
+          class="bg-emerald-50 p-2 rounded-lg text-lg"
           name="notes"
           type="text"
           placeholder="Add some notes.."
@@ -119,7 +155,7 @@ export default {
         >
         <input
           v-model="inputFields.rating"
-          class="bg-orange-50 p-2 rounded-lg text-lg"
+          class="bg-emerald-50 p-2 rounded-lg text-lg"
           type="number"
           name="rating"
           id="rating"
@@ -131,12 +167,11 @@ export default {
       </div>
 
       <div class="flex justify-between">
-        <button class="text-white p-2 rounded-lg bg-orange-500" type="submit">
-          Add day
-        </button>
+        <OrangeBtn :isSubmit="true" :isOutline="false" text="Add day" />
         <button
           @click="closeModal"
-          class="border rounded-lg border-red-500 p-2 text-red-500"
+          type="button"
+          class="border text-lg rounded-lg border-red-500 p-2 text-red-500 hover:bg-red-500 hover:text-white transition-colors"
         >
           Close
         </button>

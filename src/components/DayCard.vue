@@ -27,15 +27,15 @@ export default {
 <template>
   <div class="day-card" v-if="tripDay">
     <h4 class="text-center text-4xl font-medium mb-12">
-      Here's your day <span class="text-orange-500">{{ dayNumber }}</span>
+      Here's your day <span class="text-emerald-600">{{ dayNumber }}</span>
     </h4>
     <p class="text-lg mb-8" v-if="tripDay?.notes">
-      <span class="text-orange-600">Notes: </span>{{ tripDay.notes }}
+      <span class="text-emerald-600">Notes: </span>{{ tripDay.notes }}
     </p>
 
     <!-- Handle day stops -->
     <div class="stops mb-8">
-      <h5 class="text-2xl mb-4 text-center text-orange-500">
+      <h5 class="text-2xl mb-4 text-center text-emerald-600">
         Stops for this day:
       </h5>
       <div class="row flex flex-wrap gap-y-8">
@@ -57,7 +57,7 @@ export default {
   <div class="empty-day-card text-center" v-else>
     <h4 class="text-4xl font-medium mb-6">
       You've nothing planned for day
-      <span class="text-orange-500">{{ dayNumber }}</span> yet.
+      <span class="text-emerald-600">{{ dayNumber }}</span> yet.
     </h4>
     <OrangeBtn
       @click="store.setDayModal(true, dayNumber, $route.params.id)"

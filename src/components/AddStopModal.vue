@@ -68,7 +68,7 @@ export default {
 <template>
   <div @click="closeModal" class="backdrop"></div>
   <div class="add-stop-modal my-8">
-    <h4 class="text-2xl mb-4 text-center">Add a stop for this day</h4>
+    <h4 class="text-3xl mb-4 text-center">Add a stop for this day</h4>
     <h4 class="text-red-500 text-2xl mb-6" v-if="error">{{ error }}</h4>
 
     <!-- Handle this case in a different way! -->
@@ -81,7 +81,7 @@ export default {
         <label class="text-xl" for="location">Location:</label>
         <input
           v-model="formFields.location"
-          class="bg-orange-50 p-2 rounded-lg text-lg"
+          class="bg-emerald-50 p-2 rounded-lg text-lg"
           type="text"
           placeholder="Sagrada Familia"
           name="location"
@@ -95,7 +95,7 @@ export default {
         <label class="text-xl" for="address">Address:</label>
         <input
           v-model="formFields.address"
-          class="bg-orange-50 p-2 rounded-lg text-lg"
+          class="bg-emerald-50 p-2 rounded-lg text-lg"
           type="text"
           placeholder="Eixample, 08013 Barcelona, Spain"
           name="address"
@@ -109,7 +109,7 @@ export default {
         <label class="text-xl" for="type">Type:</label>
         <input
           v-model="formFields.type"
-          class="bg-orange-50 p-2 rounded-lg text-lg"
+          class="bg-emerald-50 p-2 rounded-lg text-lg"
           type="text"
           placeholder="Church"
           name="type"
@@ -123,7 +123,7 @@ export default {
         <label class="text-xl" for="notes">Add notes for this stop:</label>
         <textarea
           v-model="formFields.notes"
-          class="bg-orange-50 p-2 rounded-lg text-lg"
+          class="bg-emerald-50 p-2 rounded-lg text-lg"
           name="notes"
           type="text"
           placeholder="Add some notes.."

@@ -74,7 +74,7 @@ export default {
 };
 </script>
 <template>
-  <main class="container mx-auto py-12">
+  <main class="container mx-auto">
     <!-- Handle the case when the user is not authenticated -->
     <div v-if="!store.isAuthorized">
       <LoginAlertMessage />

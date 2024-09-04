@@ -12,7 +12,7 @@ export default {
 <template>
   <div class="logo">
     <div class="square"><span>TP</span></div>
-    <h2 v-if="withText">TripPlanner</h2>
+    <h2 v-if="withText">TriPlanner</h2>
   </div>
 </template>
 <style scoped>

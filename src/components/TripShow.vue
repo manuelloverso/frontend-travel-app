@@ -40,7 +40,7 @@ export default {
           daysDifference < this.trip.trip_duration
         ) {
           /* the trip is currently happening */
-          this.daysDifferenceClass = "text-green-500";
+          this.daysDifferenceClass = "text-green-600";
           const daysLeft = this.trip.trip_duration - daysDifference;
           return `This is day ${daysDifference} on the trip, you still have ${daysLeft} days left.`;
         } else if (daysDifference === this.trip.trip_duration) {
@@ -64,7 +64,7 @@ export default {
 
     <div class="map-destination flex gap-3 items-center mb-12">
       <h5 class="w-1/2 text-3xl text-center">
-        Your destination: <br /><span class="text-orange-600">{{
+        Your destination: <br /><span class="text-emerald-600">{{
           trip.destination
         }}</span>
       </h5>
@@ -79,8 +79,8 @@ export default {
       class="departure_date flex flex-col items-center gap-3 text-xl mb-24"
     >
       <span class="me-4">
-        <span class="text-orange-600">Departure Date: </span>
-        <span class="border-b border-orange-500">
+        <span class="text-emerald-600">Departure Date: </span>
+        <span class="border-b border-emerald-600">
           {{ trip.departure_date }}</span
         >
       </span>

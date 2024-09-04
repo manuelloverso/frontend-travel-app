@@ -42,7 +42,7 @@ export default {
 </script>
 <template>
   <header>
-    <nav class="container mx-auto py-6 flex justify-between items-center">
+    <nav class="container mx-auto py-5 flex justify-between items-center">
       <RouterLink :to="{ name: 'home' }"
         ><AppLogo :withText="true"
       /></RouterLink>
@@ -67,14 +67,14 @@ export default {
       <div v-else class="flex gap-3">
         <RouterLink
           :to="{ name: 'login' }"
-          class="bg-orange-500 text-white p-2 text-lg font-semibold rounded-lg"
+          class="bg-emerald-600 text-white p-2 text-lg font-semibold rounded-lg"
         >
           Login
         </RouterLink>
 
         <RouterLink
           :to="{ name: 'register' }"
-          class="bg-orange-500 text-white p-2 text-lg font-semibold rounded-lg"
+          class="bg-emerald-600 text-white p-2 text-lg font-semibold rounded-lg"
         >
           Register
         </RouterLink>
@@ -84,7 +84,11 @@ export default {
 </template>
 <style scoped>
 header {
-  border-top: 6px solid var(--accent);
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  background: rgba(255, 255, 255, 0.162);
+  backdrop-filter: blur(15px);
 }
 
 .hidden {
@@ -101,8 +105,8 @@ header {
   padding: 1rem;
   position: absolute;
   top: 20px;
-  background-color: red;
-  filter: blur(3);
+  background: rgba(200, 200, 200, 0.46);
+  backdrop-filter: blur(10px); /* not working */
   & a {
     white-space: nowrap;
     display: block;
