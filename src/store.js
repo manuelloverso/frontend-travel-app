@@ -1,4 +1,5 @@
 import { reactive } from "vue";
+import EditDayModal from "./components/EditDayModal.vue";
 
 export const store = reactive({
   backendUrl: "http://localhost:8000",
@@ -27,6 +28,11 @@ export const store = reactive({
     stopId: null,
   },
 
+  editDayModal: {
+    isOpen: false,
+    dayObj: null,
+  },
+
   /**
    * save user data and set auth status
    * @param {object} user save user data
@@ -50,6 +56,16 @@ export const store = reactive({
     this.dayModal.isOpen = isOpen;
     this.dayModal.dayNumber = dayNumber;
     this.dayModal.tripId = tripId;
+  },
+
+  /**
+   * set modal status and needed info
+   * @param {Boolean} isOpen show the modal
+   * @param {Object} dayObj day Object
+   */
+  setEditDayModal(isOpen, dayObj) {
+    this.editDayModal.isOpen = isOpen;
+    this.editDayModal.dayObj = dayObj;
   },
 
   /**

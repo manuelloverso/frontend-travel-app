@@ -83,7 +83,6 @@ export default {
           this.tripForm
         );
 
-        console.log(res);
         if (res.data.success) {
           this.$router.push({ name: "trips" });
         } else {

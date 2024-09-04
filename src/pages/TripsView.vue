@@ -39,7 +39,6 @@ export default {
         await axios.get(`${store.backendUrl}/sanctum/csrf-cookie`);
 
         const res = await axios.get(`${store.backendUrl}/api/trips`);
-        console.log(res);
 
         if (res.data.success) {
           store.trips = res.data.response;

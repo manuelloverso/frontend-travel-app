@@ -89,6 +89,7 @@ header {
   width: 100vw;
   background: rgba(255, 255, 255, 0.162);
   backdrop-filter: blur(15px);
+  z-index: 1;
 }
 
 .hidden {

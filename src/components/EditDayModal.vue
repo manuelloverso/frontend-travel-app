@@ -1,23 +1,23 @@
 <script>
 import axios from "axios";
-import { store, resetForm } from "../store";
+import { store } from "../store";
 import AppLoader from "./AppLoader.vue";
 import OrangeBtn from "./OrangeBtn.vue";
 
 export default {
-  name: "AddDayModal",
+  name: "EditDayModal",
   components: {
-    AppLoader,
     OrangeBtn,
+    AppLoader,
   },
   data() {
     return {
       store,
-      resetForm,
-      isDayCreated: false,
+      day: null,
       isLoading: false,
-      error: null,
       formErrors: null,
+      error: null,
+      isDayUpdated: false,
 
       inputFields: {
         notes: null,
@@ -28,35 +28,29 @@ export default {
     };
   },
 
-  computed: {
-    isOpen() {
-      return store.dayModal.isOpen;
-    },
-
-    dayNumber() {
-      return store.dayModal.dayNumber;
-    },
-  },
-
   methods: {
     async addDay() {
       this.isLoading = true;
       this.error = null;
       this.formErrors = null;
-      this.isDayCreated = false;
+      this.isDayEdited = false;
 
       let data = {
         ...this.inputFields,
-        trip_id: Number(store.dayModal.tripId),
-        day_number: Number(store.dayModal.dayNumber),
+        trip_id: this.day.trip_id,
+        day_number: this.day.day_number,
       };
+
       try {
-        const res = await axios.post(`${store.backendUrl}/api/day`, data);
+        const res = await axios.put(
+          `${store.backendUrl}/api/day/${this.day.id}`,
+          data
+        );
         console.log(res);
 
         if (res.data.success) {
           /* do something (probably close the modal with a toast success message)  */
-          this.isDayCreated = true;
+          this.isDayUpdated = true;
         } else {
           this.error = res.data.response;
         }
@@ -76,12 +70,13 @@ export default {
     },
 
     closeModal() {
-      store.dayModal = {
-        isOpen: false,
-        dayNumber: null,
-        tripId: null,
-      };
+      store.setEditDayModal(false, null);
     },
+  },
+
+  beforeMount() {
+    this.day = store.editDayModal.dayObj;
+    console.log(this.day);
   },
 };
 </script>
@@ -89,13 +84,13 @@ export default {
   <div @click="closeModal" class="backdrop"></div>
   <div class="modal">
     <h3 class="text-3xl font-medium mb-6 text-center">
-      Manage your day {{ dayNumber }} here
+      Edit your day {{ day.day_number }} here
     </h3>
 
     <h4 class="text-red-500 text-2xl mb-6" v-if="error">{{ error }}</h4>
 
     <!-- Handle this case in a different way! -->
-    <h4 class="text-green-500 text-2xl mb-6" v-if="isDayCreated">
+    <h4 class="text-green-500 text-2xl mb-6" v-if="isDayUpdated">
       Day created with success
     </h4>
 

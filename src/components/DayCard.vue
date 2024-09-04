@@ -22,10 +22,22 @@ export default {
       isModalOpen: true,
     };
   },
+
+  methods: {
+    openEditModal(dayObj) {
+      store.setEditDayModal(true, dayObj);
+    },
+  },
 };
 </script>
 <template>
-  <div class="day-card" v-if="tripDay">
+  <div class="day-card relative" v-if="tripDay">
+    <button
+      class="edit-day-btn p-3 bg-emerald-600 flex items-center rounded-lg hover:bg-emerald-800 transition-colors"
+      @click="openEditModal(tripDay)"
+    >
+      <img class="w-6" src="/public/img/pen-solid.svg" alt="edit pen" />
+    </button>
     <h4 class="text-center text-4xl font-medium mb-12">
       Here's your day <span class="text-emerald-600">{{ dayNumber }}</span>
     </h4>
@@ -74,6 +86,12 @@ export default {
   padding: 3rem;
   border-radius: 20px;
   box-shadow: var(--accent) 0 0 10px -4px;
+}
+
+.edit-day-btn {
+  position: absolute;
+  right: 40px;
+  top: 40px;
 }
 
 .add-stop {

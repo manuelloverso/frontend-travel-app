@@ -8,6 +8,7 @@ import TripDays from "../components/TripDays.vue";
 import AddDayModal from "../components/AddDayModal.vue";
 import AddStopModal from "../components/AddStopModal.vue";
 import DeleteStopModal from "../components/deleteStopModal.vue";
+import EditDayModal from "../components/EditDayModal.vue";
 
 export default {
   name: "SingleTripView",
@@ -19,6 +20,7 @@ export default {
     AddDayModal,
     AddStopModal,
     DeleteStopModal,
+    EditDayModal,
   },
   data() {
     return {
@@ -45,7 +47,6 @@ export default {
         );
         if (res.data.success) {
           this.trip = res.data.response;
-          console.log(res.data.response.days);
         } else {
           this.$router.push({ name: "NotFound" });
         }
@@ -91,6 +92,11 @@ export default {
   <!-- Add Day Modal -->
   <template v-if="store.dayModal.isOpen">
     <AddDayModal />
+  </template>
+
+  <!-- Edit Day Modal -->
+  <template v-if="store.editDayModal.isOpen">
+    <EditDayModal />
   </template>
 
   <!-- Add stop Modal -->
