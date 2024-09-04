@@ -9,6 +9,7 @@ import AddDayModal from "../components/AddDayModal.vue";
 import AddStopModal from "../components/AddStopModal.vue";
 import DeleteStopModal from "../components/deleteStopModal.vue";
 import EditDayModal from "../components/EditDayModal.vue";
+import EditStopModal from "../components/EditStopModal.vue";
 
 export default {
   name: "SingleTripView",
@@ -21,6 +22,7 @@ export default {
     AddStopModal,
     DeleteStopModal,
     EditDayModal,
+    EditStopModal,
   },
   data() {
     return {
@@ -102,6 +104,11 @@ export default {
   <!-- Add stop Modal -->
   <template v-if="store.stopModal.isOpen">
     <AddStopModal />
+  </template>
+
+  <!-- Edit stop Modal -->
+  <template v-if="store.editStopModal.isOpen">
+    <EditStopModal />
   </template>
 
   <!-- delete stop Modal -->

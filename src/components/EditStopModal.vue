@@ -1,56 +1,55 @@
 <script>
-import axios from "axios";
 import { store } from "../store";
 import AppLoader from "./AppLoader.vue";
 import OrangeBtn from "./OrangeBtn.vue";
+import axios from "axios";
 
 export default {
-  name: "EditDayModal",
+  name: "EditStopModal",
   components: {
-    OrangeBtn,
     AppLoader,
+    OrangeBtn,
   },
   data() {
     return {
       store,
-      day: null,
+      stop: null,
+      error: null,
+      isStopUpdated: false,
       isLoading: false,
       formErrors: null,
-      error: null,
-      isDayUpdated: false,
 
-      inputFields: {
+      formFields: {
+        location: null,
+        address: null,
+        type: null,
         notes: null,
-        title: null,
-        weather: null,
-        rating: null,
       },
     };
   },
 
   methods: {
-    async editDay() {
+    async editStop() {
       this.isLoading = true;
       this.error = null;
       this.formErrors = null;
-      this.isDayUpdated = false;
+      this.isStopUpdated = false;
 
       let data = {
-        ...this.inputFields,
-        trip_id: this.day.trip_id,
-        day_number: this.day.day_number,
+        ...this.formFields,
+        day_id: this.stop.day_id,
       };
 
       try {
         const res = await axios.put(
-          `${store.backendUrl}/api/day/${this.day.id}`,
+          `${store.backendUrl}/api/stop/${4389}`,
           data
         );
         console.log(res);
 
         if (res.data.success) {
           /* do something (probably close the modal with a toast success message)  */
-          this.isDayUpdated = true;
+          this.isStopUpdated = true;
         } else {
           this.error = res.data.response;
         }
@@ -70,69 +69,78 @@ export default {
     },
 
     closeModal() {
-      store.setEditDayModal(false, null);
+      store.setEditStopModal(false, null);
     },
   },
 
   beforeMount() {
-    this.day = store.editDayModal.dayObj;
-    console.log(this.day);
+    this.stop = store.editStopModal.stopObj;
   },
 };
 </script>
 <template>
   <div @click="closeModal" class="backdrop"></div>
-  <div v-if="day" class="modal">
+  <div v-if="stop" class="modal">
     <h3 class="text-3xl font-medium mb-6 text-center">
-      Edit your day {{ day.day_number }} here
+      Edit your stop to {{ stop.location }} here
     </h3>
 
     <h4 class="text-red-500 text-2xl mb-6" v-if="error">{{ error }}</h4>
 
     <!-- Handle this case in a different way! -->
-    <h4 class="text-green-500 text-2xl mb-6" v-if="isDayUpdated">
-      Day created with success
+    <h4 class="text-green-500 text-2xl mb-6" v-if="isStopUpdated">
+      Stop updated with success
     </h4>
 
     <AppLoader v-if="isLoading" :minHeight="500" />
 
-    <form v-else @submit.prevent="editDay">
-      <div class="flex flex-col gap-2 mb-6">
-        <label for="title" class="text-xl">Add a title for this day</label>
+    <form v-else @submit.prevent="editStop">
+      <div class="flex flex-col gap-2 mb-4">
+        <label class="text-xl" for="location">Location:</label>
         <input
-          v-model="inputFields.title"
+          v-model="formFields.location"
           class="bg-emerald-50 p-2 rounded-lg text-lg"
           type="text"
-          name="title"
-          id="title"
-          placeholder="A day in the suburbs"
+          placeholder="Sagrada Familia"
+          name="location"
         />
-        <p class="text-red-500 text-xl" v-if="formErrors?.title">
-          {{ formErrors.title[0] }}
+        <p class="text-red-500 text-xl" v-if="formErrors?.location">
+          {{ formErrors.location[0] }}
         </p>
       </div>
 
-      <div class="flex flex-col gap-2 mb-6">
-        <label for="weather" class="text-xl"
-          >What will the weather be like?</label
-        >
+      <div class="flex flex-col gap-2 mb-4">
+        <label class="text-xl" for="address">Address:</label>
         <input
-          v-model="inputFields.weather"
+          v-model="formFields.address"
           class="bg-emerald-50 p-2 rounded-lg text-lg"
           type="text"
-          name="weather"
-          id="weather"
-          placeholder="It'll be a cloudy day"
+          placeholder="Eixample, 08013 Barcelona, Spain"
+          name="address"
         />
-        <p class="text-red-500 text-xl" v-if="formErrors?.weather">
-          {{ formErrors.weather[0] }}
+        <p class="text-red-500 text-xl" v-if="formErrors?.address">
+          {{ formErrors.address[0] }}
         </p>
       </div>
 
-      <div class="flex flex-col gap-2 mb-6">
-        <label class="text-xl" for="notes">Notes:</label>
+      <div class="flex flex-col gap-2 mb-4">
+        <label class="text-xl" for="type">Type:</label>
+        <input
+          v-model="formFields.type"
+          class="bg-emerald-50 p-2 rounded-lg text-lg"
+          type="text"
+          placeholder="Church"
+          name="type"
+        />
+        <p class="text-red-500 text-xl" v-if="formErrors?.type">
+          {{ formErrors.type[0] }}
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-2 mb-8">
+        <label class="text-xl" for="notes">Add notes for this stop:</label>
         <textarea
-          v-model="inputFields.notes"
+          v-model="formFields.notes"
           class="bg-emerald-50 p-2 rounded-lg text-lg"
           name="notes"
           type="text"
@@ -144,29 +152,13 @@ export default {
         </p>
       </div>
 
-      <div class="flex flex-col gap-2 mb-6">
-        <label for="rating" class="text-xl"
-          >Do you wanna rate this already? You can change this later</label
-        >
-        <input
-          v-model="inputFields.rating"
-          class="bg-emerald-50 p-2 rounded-lg text-lg"
-          type="number"
-          name="rating"
-          id="rating"
-          placeholder="4"
-        />
-        <p class="text-red-500 text-xl" v-if="formErrors?.rating">
-          {{ formErrors.rating[0] }}
-        </p>
-      </div>
+      <div class="actions flex items-center justify-between">
+        <OrangeBtn :isSubmit="true" :isOutline="false" text="Edit stop" />
 
-      <div class="flex justify-between">
-        <OrangeBtn :isSubmit="true" :isOutline="false" text="Edit day" />
         <button
           @click="closeModal"
           type="button"
-          class="border text-lg rounded-lg border-red-500 p-2 text-red-500 hover:bg-red-500 hover:text-white transition-colors"
+          class="p-2 text-red-500 border border-red-500 rounded-lg"
         >
           Close
         </button>

@@ -202,31 +202,4 @@ export default {
   background-color: rgba(0, 0, 0, 0.542);
   z-index: 2;
 }
-
-.add-stop-btn {
-  padding: 10px;
-  border: 1px solid var(--accent);
-  border-radius: 14px;
-  width: 300px;
-  margin-bottom: 25px;
-
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  justify-content: center;
-
-  & span {
-    transition: 0.2s ease;
-    color: var(--accent);
-    font-size: 1.1rem;
-  }
-
-  &:hover {
-    /*     background-color: var(--accent); */
-
-    & span {
-      letter-spacing: 1px;
-    }
-  }
-}
 </style>
