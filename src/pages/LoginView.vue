@@ -35,7 +35,7 @@ export default {
 
       try {
         await axios.get(`${store.backendUrl}/sanctum/csrf-cookie`);
-        let res = await axios.post(
+        const res = await axios.post(
           `${store.backendUrl}/api/login`,
           this.formData
         );

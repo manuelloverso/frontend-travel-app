@@ -42,7 +42,7 @@ html {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff3c00; /* Color of the scrollbar thumb when*/
+  background: #00784a; /* Color of the scrollbar thumb when*/
 }
 
 body {

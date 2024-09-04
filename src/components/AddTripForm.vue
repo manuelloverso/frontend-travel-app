@@ -47,13 +47,15 @@ export default {
           /* add a toast notification */
         } else {
           this.error = res.data.message;
-          store.setAuthStatus(null, false, true);
         }
       } catch (err) {
         console.error(err);
         if (err.response?.status === 422) {
           this.formErrors = err.response.data.errors;
-        } else if (err.response?.status === 401) {
+        } else if (
+          err.response?.status === 401 ||
+          err.response?.status === 419
+        ) {
           this.error = err.response.data.message;
           store.setAuthStatus(null, false, true);
         } else {
@@ -67,13 +69,16 @@ export default {
 };
 </script>
 <template>
-  <h2 class="text-5xl font-semibold text-center mb-12">
+  <h2 class="text-5xl font-semibold text-center mb-6">
     {{ isFirstTrip ? "Add your first trip here." : "Add another trip here." }}
   </h2>
+  <p class="text-center text-xl mb-8">
+    Keep in mind that you can always update it later if needed.
+  </p>
   <div class="form-box bg-white rounded-xl">
     <div v-if="isLoading"><AppLoader :minHeight="800" /></div>
     <div v-else class="flex flex-wrap">
-      <div class="w-1/3 bg-orange-500 text-white rounded-xl px-8 pt-24">
+      <div class="w-1/3 bg-emerald-600 text-white rounded-xl px-8 pt-24">
         <h3 class="text-4xl font-medium mb-2 leading-snug">
           Craft Your Adventure, Day by Day.
         </h3>

@@ -77,3 +77,4 @@
 - add loader when clicking on handle day
 - do some backend validation to aavoid days being created with the same day_number for the same trip
 - add something else in the day table/creation form
+- on Laravel add all api routes in the auth:sanctum middlewere and try to remove the Auth::user() from the methods and see how it reacts.

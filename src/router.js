@@ -6,6 +6,7 @@ import TripsView from "./pages/TripsView.vue";
 import AddTripView from "./pages/AddTripView.vue";
 import SingleTripView from "./pages/SingleTripView.vue";
 import NotFound from "./pages/NotFound.vue";
+import EditTripView from "./pages/EditTripView.vue";
 
 export const routes = [
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
@@ -38,6 +39,12 @@ export const routes = [
     path: "/add-trip",
     name: "add-trip",
     component: AddTripView,
+  },
+
+  {
+    path: "/edit-trip/:id",
+    name: "edit-trip",
+    component: EditTripView,
   },
 
   {

@@ -61,12 +61,20 @@ export default {
           <OrangeBtn :isOutline="true" :isSubmit="false" text="See More" />
         </RouterLink>
 
-        <button
-          @click="openModal"
-          class="bg-red-500 text-white p-3 text-lg rounded-lg hover:bg-red-700 transition-colors"
-        >
-          Delete trip
-        </button>
+        <div class="edit-delete flex gap-3">
+          <RouterLink
+            :to="'edit-trip/' + tripObj.id"
+            class="p-3 bg-emerald-600 flex items-center rounded-lg hover:bg-emerald-800 transition-colors"
+          >
+            <img class="w-4" src="/public/img/pen-solid.svg" alt="edit pen" />
+          </RouterLink>
+          <button
+            @click="openModal"
+            class="bg-red-500 text-white p-3 text-lg rounded-lg hover:bg-red-700 transition-colors"
+          >
+            Delete trip
+          </button>
+        </div>
       </div>
     </div>
   </div>
