@@ -42,7 +42,7 @@ export default {
 
       try {
         const res = await axios.put(
-          `${store.backendUrl}/api/stop/${4389}`,
+          `${store.backendUrl}/api/stop/${this.stop.id}`,
           data
         );
         console.log(res);
@@ -50,6 +50,8 @@ export default {
         if (res.data.success) {
           /* do something (probably close the modal with a toast success message)  */
           this.isStopUpdated = true;
+          this.$emit("stopEdited");
+          this.closeModal();
         } else {
           this.error = res.data.response;
         }

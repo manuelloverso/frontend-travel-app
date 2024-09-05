@@ -290,7 +290,7 @@ export default {
                 </p>
               </div>
 
-              <button type="submit" class="submit-btn">Add trip</button>
+              <button type="submit" class="submit-btn">Edit trip</button>
             </form>
           </div>
         </div>

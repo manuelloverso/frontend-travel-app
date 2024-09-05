@@ -30,6 +30,8 @@ export default {
         );
         if (res.data.success) {
           this.success = true;
+          this.$emit("stopDeleted");
+          this.closeModal();
         } else {
           this.error = res.data.response;
         }

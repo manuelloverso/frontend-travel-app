@@ -43,6 +43,7 @@ export default {
 
   methods: {
     async fetchTrip() {
+      this.isLoading = true;
       try {
         const res = await axios.get(
           `${store.backendUrl}/api/trips/${this.tripId}`
@@ -70,6 +71,11 @@ export default {
     this.tripId = this.$route.params.id;
     this.fetchTrip();
   },
+
+  beforeRouteUpdate(to, from, next) {
+    this.fetchTrip();
+    next();
+  },
 };
 </script>
 <template>
@@ -93,27 +99,27 @@ export default {
 
   <!-- Add Day Modal -->
   <template v-if="store.dayModal.isOpen">
-    <AddDayModal />
+    <AddDayModal @dayAdded="fetchTrip" />
   </template>
 
   <!-- Edit Day Modal -->
   <template v-if="store.editDayModal.isOpen">
-    <EditDayModal />
+    <EditDayModal @dayEdited="fetchTrip" />
   </template>
 
   <!-- Add stop Modal -->
   <template v-if="store.stopModal.isOpen">
-    <AddStopModal />
+    <AddStopModal @stopAdded="fetchTrip" />
   </template>
 
   <!-- Edit stop Modal -->
   <template v-if="store.editStopModal.isOpen">
-    <EditStopModal />
+    <EditStopModal @stopEdited="fetchTrip" />
   </template>
 
   <!-- delete stop Modal -->
   <template v-if="store.deleteStopModal.isOpen">
-    <DeleteStopModal />
+    <DeleteStopModal @stopDeleted="fetchTrip" />
   </template>
 </template>
 <style scoped></style>

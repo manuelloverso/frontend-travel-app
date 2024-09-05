@@ -61,6 +61,7 @@
 
 ## TODOs
 
+- handle edit forms old values and crud redirects
 - fix header
 - add crud for trips days and stops
 - add images for stops and trips(use modals to show them and maybe to add them too)
@@ -79,3 +80,4 @@
 - add something else in the day table/creation form
 - on Laravel add all api routes in the auth:sanctum middlewere and try to remove the Auth::user() from the methods and see how it reacts.
 - handle visited status on stops and rating on days/trips
+- add back to top button

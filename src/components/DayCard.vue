@@ -41,7 +41,12 @@ export default {
     <h4 class="text-center text-4xl font-medium mb-12">
       Here's your day <span class="text-emerald-600">{{ dayNumber }}</span>
     </h4>
-    <p class="text-lg mb-8" v-if="tripDay?.notes">
+
+    <p class="text-xl mb-8" v-if="tripDay?.title">
+      <span class="text-emerald-600">Day Title: </span>{{ tripDay.title }}
+    </p>
+
+    <p class="text-xl mb-8" v-if="tripDay?.notes">
       <span class="text-emerald-600">Notes: </span>{{ tripDay.notes }}
     </p>
 

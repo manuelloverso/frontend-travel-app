@@ -41,6 +41,8 @@ export default {
         if (res.data.success) {
           /* do something (probably close the modal with a toast success message)  */
           this.isStopCreated = true;
+          this.$emit("stopAdded");
+          this.closeModal();
         } else {
           this.error = res.data.response;
         }
