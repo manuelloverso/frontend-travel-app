@@ -10,6 +10,8 @@ export default {
     OrangeBtn,
     AppLoader,
   },
+  emits: ["stopDeleted"],
+
   data() {
     return {
       store,

@@ -30,6 +30,8 @@ export default {
         );
         if (res.data.success) {
           this.success = true;
+          this.$emit("tripDeleted");
+          this.closeModal();
         } else {
           this.error = res.data.response;
         }

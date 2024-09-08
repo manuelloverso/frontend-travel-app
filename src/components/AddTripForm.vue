@@ -43,6 +43,7 @@ export default {
           this.tripForm
         );
         if (res.data.success) {
+          store.trips.unshift(res.data.trip);
           this.$router.push({ name: "trips" });
           /* add a toast notification */
         } else {

@@ -22,7 +22,7 @@ export default {
     return {
       store,
       error: null,
-      isLoading: true,
+      isLoading: false,
       noTripsFOund: false,
     };
   },
@@ -35,6 +35,7 @@ export default {
 
   methods: {
     async fetchTrips() {
+      this.isLoading = true;
       try {
         await axios.get(`${store.backendUrl}/sanctum/csrf-cookie`);
 
@@ -68,7 +69,7 @@ export default {
   },
 
   mounted() {
-    if (store.isAuthorized) this.fetchTrips();
+    if (store.isAuthorized && store.trips.length === 0) this.fetchTrips();
   },
 };
 </script>
@@ -115,7 +116,7 @@ export default {
 
   <!-- confirm modal to delete trip -->
   <template v-if="store.deleteTripModal.isOpen">
-    <DeleteTripModal />
+    <DeleteTripModal @tripDeleted="fetchTrips" />
   </template>
 </template>
 <style scoped></style>

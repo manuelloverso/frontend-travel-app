@@ -10,6 +10,8 @@ export default {
     OrangeBtn,
     AppLoader,
   },
+  emits: ["stopAdded"],
+
   data() {
     return {
       store,

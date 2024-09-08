@@ -6,6 +6,13 @@ export const store = reactive({
   trips: [],
   isAuthorized: false,
   isExpired: false,
+
+  toastNotify: {
+    isShowing: false,
+    text: null,
+    success: null,
+  },
+
   dayModal: {
     isOpen: false,
     dayNumber: null,

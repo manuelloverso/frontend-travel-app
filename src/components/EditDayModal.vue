@@ -10,6 +10,7 @@ export default {
     OrangeBtn,
     AppLoader,
   },
+  emits: ["dayEdited"],
   data() {
     return {
       store,
@@ -18,13 +19,6 @@ export default {
       formErrors: null,
       error: null,
       isDayUpdated: false,
-
-      inputFields: {
-        notes: null,
-        title: null,
-        weather: null,
-        rating: null,
-      },
     };
   },
 
@@ -35,16 +29,10 @@ export default {
       this.formErrors = null;
       this.isDayUpdated = false;
 
-      let data = {
-        ...this.inputFields,
-        trip_id: this.day.trip_id,
-        day_number: this.day.day_number,
-      };
-
       try {
         const res = await axios.put(
           `${store.backendUrl}/api/day/${this.day.id}`,
-          data
+          this.day
         );
         console.log(res);
 
@@ -78,7 +66,6 @@ export default {
 
   beforeMount() {
     this.day = store.editDayModal.dayObj;
-    console.log(this.day);
   },
 };
 </script>
@@ -102,7 +89,7 @@ export default {
       <div class="flex flex-col gap-2 mb-6">
         <label for="title" class="text-xl">Add a title for this day</label>
         <input
-          v-model="inputFields.title"
+          v-model="day.title"
           class="bg-emerald-50 p-2 rounded-lg text-lg"
           type="text"
           name="title"
@@ -119,7 +106,7 @@ export default {
           >What will the weather be like?</label
         >
         <input
-          v-model="inputFields.weather"
+          v-model="day.weather"
           class="bg-emerald-50 p-2 rounded-lg text-lg"
           type="text"
           name="weather"
@@ -134,7 +121,7 @@ export default {
       <div class="flex flex-col gap-2 mb-6">
         <label class="text-xl" for="notes">Notes:</label>
         <textarea
-          v-model="inputFields.notes"
+          v-model="day.notes"
           class="bg-emerald-50 p-2 rounded-lg text-lg"
           name="notes"
           type="text"
@@ -151,7 +138,7 @@ export default {
           >Do you wanna rate this already? You can change this later</label
         >
         <input
-          v-model="inputFields.rating"
+          v-model="day.rating"
           class="bg-emerald-50 p-2 rounded-lg text-lg"
           type="number"
           name="rating"

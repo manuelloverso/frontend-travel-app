@@ -42,7 +42,7 @@ export default {
 </script>
 <template>
   <header>
-    <nav class="container mx-auto py-5 flex justify-between items-center">
+    <nav class="container py-5 flex justify-between items-center">
       <RouterLink :to="{ name: 'home' }"
         ><AppLogo :withText="true"
       /></RouterLink>

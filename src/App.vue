@@ -1,6 +1,7 @@
 <script>
 import AppFooter from "./components/AppFooter.vue";
 import AppHeader from "./components/AppHeader.vue";
+import ToastNotification from "./components/ToastNotification.vue";
 import axios from "axios";
 import { store } from "./store";
 
@@ -8,6 +9,7 @@ export default {
   components: {
     AppHeader,
     AppFooter,
+    ToastNotification,
   },
   name: "App",
   data() {
@@ -33,6 +35,8 @@ export default {
 };
 </script>
 <template>
+  <ToastNotification v-if="store.toastNotify.isShowing" />
+
   <!-- Site Header -->
   <AppHeader />
 

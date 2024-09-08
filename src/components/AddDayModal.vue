@@ -10,6 +10,7 @@ export default {
     AppLoader,
     OrangeBtn,
   },
+  emits: ["dayAdded"],
   data() {
     return {
       store,
@@ -58,6 +59,11 @@ export default {
           /* do something (probably close the modal with a toast success message)  */
           this.isDayCreated = true;
           this.$emit("dayAdded");
+          store.toastNotify = {
+            isShowing: true,
+            text: "Day created with success!",
+            success: true,
+          };
           this.closeModal();
         } else {
           this.error = res.data.response;

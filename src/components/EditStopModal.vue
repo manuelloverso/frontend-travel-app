@@ -10,6 +10,8 @@ export default {
     AppLoader,
     OrangeBtn,
   },
+  emits: ["stopEdited"],
+
   data() {
     return {
       store,
@@ -18,13 +20,6 @@ export default {
       isStopUpdated: false,
       isLoading: false,
       formErrors: null,
-
-      formFields: {
-        location: null,
-        address: null,
-        type: null,
-        notes: null,
-      },
     };
   },
 
@@ -35,15 +30,10 @@ export default {
       this.formErrors = null;
       this.isStopUpdated = false;
 
-      let data = {
-        ...this.formFields,
-        day_id: this.stop.day_id,
-      };
-
       try {
         const res = await axios.put(
           `${store.backendUrl}/api/stop/${this.stop.id}`,
-          data
+          this.stop
         );
         console.log(res);
 
@@ -100,7 +90,7 @@ export default {
       <div class="flex flex-col gap-2 mb-4">
         <label class="text-xl" for="location">Location:</label>
         <input
-          v-model="formFields.location"
+          v-model="stop.location"
           class="bg-emerald-50 p-2 rounded-lg text-lg"
           type="text"
           placeholder="Sagrada Familia"
@@ -114,7 +104,7 @@ export default {
       <div class="flex flex-col gap-2 mb-4">
         <label class="text-xl" for="address">Address:</label>
         <input
-          v-model="formFields.address"
+          v-model="stop.address"
           class="bg-emerald-50 p-2 rounded-lg text-lg"
           type="text"
           placeholder="Eixample, 08013 Barcelona, Spain"
@@ -128,7 +118,7 @@ export default {
       <div class="flex flex-col gap-2 mb-4">
         <label class="text-xl" for="type">Type:</label>
         <input
-          v-model="formFields.type"
+          v-model="stop.type"
           class="bg-emerald-50 p-2 rounded-lg text-lg"
           type="text"
           placeholder="Church"
@@ -142,7 +132,7 @@ export default {
       <div class="flex flex-col gap-2 mb-8">
         <label class="text-xl" for="notes">Add notes for this stop:</label>
         <textarea
-          v-model="formFields.notes"
+          v-model="stop.notes"
           class="bg-emerald-50 p-2 rounded-lg text-lg"
           name="notes"
           type="text"
