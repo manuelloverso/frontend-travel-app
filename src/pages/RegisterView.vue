@@ -153,7 +153,6 @@ export default {
             >
           </p>
         </form>
-        <p class="text-red-500 text-xl">{{ error }}</p>
         <h2 class="text-3xl font-bold" v-if="store.user">
           hello {{ store.user.name }}
         </h2>

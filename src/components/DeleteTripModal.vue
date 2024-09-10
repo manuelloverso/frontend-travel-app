@@ -56,7 +56,7 @@ export default {
 </script>
 <template>
   <div @click="closeModal" class="backdrop"></div>
-  <div class="delete-trip-modal">
+  <div class="delete-trip-modal puff-in-center">
     <AppLoader v-if="isLoading" :minHeight="300" />
     <div v-else>
       <h3 class="text-green-500 text-2xl py-16" v-if="success">

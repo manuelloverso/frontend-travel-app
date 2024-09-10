@@ -72,7 +72,7 @@ export default {
 </script>
 <template>
   <div @click="closeModal" class="backdrop"></div>
-  <div v-if="stop" class="modal">
+  <div v-if="stop" class="modal puff-in-center">
     <h3 class="text-3xl font-medium mb-6 text-center">
       Edit your stop to {{ stop.location }} here
     </h3>

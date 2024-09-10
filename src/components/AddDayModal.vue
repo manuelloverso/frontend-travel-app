@@ -95,7 +95,7 @@ export default {
 </script>
 <template>
   <div @click="closeModal" class="backdrop"></div>
-  <div class="modal">
+  <div class="modal puff-in-center">
     <h3 class="text-3xl font-medium mb-6 text-center">
       Manage your day {{ dayNumber }} here
     </h3>
@@ -198,7 +198,6 @@ export default {
   left: 50%;
   max-height: 90vh;
   overflow-y: auto;
-  transform: translate(-50%, -50%);
   z-index: 3;
 }
 

@@ -67,6 +67,7 @@
 - check which fields have to be mandatory in days and stops tables
 - add graph for budget
 - add some functionality related to the budget or remove it completeley
+- handle visited status on stops and rating on days/trips
 - add map for trip destination
 - add map for stops
 - handle day management for when the trip is in the past
@@ -74,10 +75,8 @@
 - add all frontend validations
 - add toast confirm messages
 - handle day creation by closing the modal and showing some toast sucess message
-- add loader when clicking on handle day
 - do some backend validation to aavoid days being created with the same day_number for the same trip
 - add something else in the day table/creation form
 - on Laravel add all api routes in the auth:sanctum middlewere and try to remove the Auth::user() from the methods and see how it reacts.
-- handle visited status on stops and rating on days/trips
 - add back to top button
 - edit and style login and register page both when the user is logged and when he isnt

@@ -71,7 +71,7 @@ export default {
 </script>
 <template>
   <div @click="closeModal" class="backdrop"></div>
-  <div class="add-stop-modal my-8">
+  <div class="add-stop-modal puff-in-center">
     <h4 class="text-3xl mb-4 text-center">Add a stop for this day</h4>
     <h4 class="text-red-500 text-2xl mb-6" v-if="error">{{ error }}</h4>
 
@@ -161,9 +161,9 @@ export default {
   position: fixed;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
   max-height: 90vh;
   overflow-y: auto;
-  transform: translate(-50%, -50%);
   z-index: 3;
 }
 

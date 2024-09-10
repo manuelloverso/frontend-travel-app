@@ -71,7 +71,7 @@ export default {
 </script>
 <template>
   <div @click="closeModal" class="backdrop"></div>
-  <div v-if="day" class="modal">
+  <div v-if="day" class="modal puff-in-center">
     <h3 class="text-3xl font-medium mb-6 text-center">
       Edit your day {{ day.day_number }} here
     </h3>
