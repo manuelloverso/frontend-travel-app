@@ -87,6 +87,11 @@ export default {
           const oldTrip = store.trips.find((t) => t.id == this.tripId);
           if (oldTrip) Object.assign(oldTrip, res.data.trip);
           this.$router.push({ name: "trips" });
+          store.toastNotify = {
+            isShowing: true,
+            text: "Trip updated with success!",
+            success: true,
+          };
         } else {
           this.editError = res.data.response;
         }

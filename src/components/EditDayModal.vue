@@ -37,9 +37,13 @@ export default {
         console.log(res);
 
         if (res.data.success) {
-          /* do something (probably close the modal with a toast success message)  */
           this.isDayUpdated = true;
           this.$emit("dayEdited");
+          store.toastNotify = {
+            isShowing: true,
+            text: "Day updated with success!",
+            success: true,
+          };
           this.closeModal();
         } else {
           this.error = res.data.response;

@@ -31,6 +31,11 @@ export default {
         if (res.data.success) {
           this.success = true;
           this.$emit("tripDeleted");
+          store.toastNotify = {
+            isShowing: true,
+            text: "Trip deleted with success!",
+            success: false,
+          };
           this.closeModal();
         } else {
           this.error = res.data.response;

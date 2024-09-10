@@ -33,6 +33,11 @@ export default {
         if (res.data.success) {
           this.success = true;
           this.$emit("stopDeleted");
+          store.toastNotify = {
+            isShowing: true,
+            text: "Stop deleted with success!",
+            success: false,
+          };
           this.closeModal();
         } else {
           this.error = res.data.response;

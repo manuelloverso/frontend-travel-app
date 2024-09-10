@@ -41,9 +41,13 @@ export default {
         const res = await axios.post(`${store.backendUrl}/api/stop`, data);
         console.log(res);
         if (res.data.success) {
-          /* do something (probably close the modal with a toast success message)  */
           this.isStopCreated = true;
           this.$emit("stopAdded");
+          store.toastNotify = {
+            isShowing: true,
+            text: "Stop created with success!",
+            success: true,
+          };
           this.closeModal();
         } else {
           this.error = res.data.response;

@@ -45,7 +45,11 @@ export default {
         if (res.data.success) {
           store.trips.unshift(res.data.trip);
           this.$router.push({ name: "trips" });
-          /* add a toast notification */
+          store.toastNotify = {
+            isShowing: true,
+            text: "Trip created with success!",
+            success: true,
+          };
         } else {
           this.error = res.data.message;
         }
