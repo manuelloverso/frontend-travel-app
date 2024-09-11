@@ -18,6 +18,7 @@ export default {
         number_of_people: null,
         available_budget: null,
       },
+      imageInput: null,
       error: null,
       formErrors: null,
       isLoading: null,
@@ -32,16 +33,31 @@ export default {
 
   methods: {
     async submitTrip() {
+      this.imageInput = this.$refs.image;
       this.isLoading = true;
       this.formErrors = null;
       this.error = null;
+
       try {
         await axios.get(`${store.backendUrl}/sanctum/csrf-cookie`);
 
-        const res = await axios.post(
-          `${store.backendUrl}/api/trip`,
-          this.tripForm
-        );
+        /* create the form data */
+        let formData = new FormData();
+
+        /* append all form fields in the form data obj */
+        for (let key in this.tripForm) {
+          formData.append(
+            key,
+            this.tripForm[key] !== null ? this.tripForm[key] : ""
+          );
+        }
+
+        /* add image in the form data */
+        if (this.imageInput && this.imageInput.files.length > 0) {
+          formData.append("image", this.imageInput.files[0]);
+        }
+
+        const res = await axios.post(`${store.backendUrl}/api/trip`, formData);
         if (res.data.success) {
           store.trips.unshift(res.data.trip);
           this.$router.push({ name: "trips" });
@@ -155,7 +171,7 @@ export default {
 
         <div class="input-group">
           <!-- Departure date -->
-          <label for="departure_date">Departure Date:</label>
+          <label for="departure_date">Departure Date*:</label>
           <input
             v-model="tripForm.departure_date"
             name="departure_date"
@@ -217,7 +233,7 @@ export default {
             >Add an image (max 4MB), the ratio should be
             16:9(horizontal):</label
           >
-          <input name="image" type="file" />
+          <input name="image" type="file" ref="image" />
           <p class="text-red-500 text-xl" v-if="formErrors?.image">
             {{ formErrors.image[0] }}
           </p>

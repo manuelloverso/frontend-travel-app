@@ -22,12 +22,14 @@ export default {
       editError: null,
       tripForm: {
         name: null,
-        destination: null,
         departure_date: null,
+        destination: null,
         trip_duration: null,
         number_of_people: null,
         available_budget: null,
       },
+      imageInput: null,
+
       formErrors: null,
     };
   },
@@ -73,19 +75,42 @@ export default {
     },
 
     async editTrip() {
+      this.imageInput = this.$refs.image;
       this.isEditLoading = true;
       this.formErrors = null;
       this.editError = null;
 
-      try {
-        const res = await axios.put(
-          `${store.backendUrl}/api/trip/${this.tripId}`,
-          this.tripForm
+      /* create the form data */
+      let formData = new FormData();
+
+      /* append all form fields in the form data obj */
+      for (let key in this.tripForm) {
+        formData.append(
+          key,
+          this.tripForm[key] !== null ? this.tripForm[key] : ""
         );
+      }
+
+      /* add image in the form data */
+      if (this.imageInput && this.imageInput.files.length > 0) {
+        formData.append("image", this.imageInput.files[0]);
+      }
+
+      try {
+        await axios.get(`${store.backendUrl}/sanctum/csrf-cookie`);
+
+        const res = await axios.post(
+          `${store.backendUrl}/api/edit-trip/${this.tripId}`,
+          formData
+        );
+
+        console.log(res);
 
         if (res.data.success) {
           const oldTrip = store.trips.find((t) => t.id == this.tripId);
           if (oldTrip) Object.assign(oldTrip, res.data.trip);
+
+          /* redirect with toast notification */
           this.$router.push({ name: "trips" });
           store.toastNotify = {
             isShowing: true,
@@ -291,11 +316,17 @@ export default {
                   >Add an image (max 4MB), the ratio should be
                   16:9(horizontal):</label
                 >
-                <input name="image" type="file" />
+                <input name="image" type="file" ref="image" />
                 <p class="text-red-500 text-xl" v-if="formErrors?.image">
                   {{ formErrors.image[0] }}
                 </p>
               </div>
+
+              <img
+                class="w-56 mb-8"
+                :src="store.backendUrl + '/' + trip.image"
+                alt=""
+              />
 
               <button type="submit" class="submit-btn">Edit trip</button>
             </form>

@@ -54,7 +54,7 @@ export default {
         }
       } catch (err) {
         console.error(err);
-        if (err.response.status === 401 || err.response.status === 419) {
+        if (err.response?.status === 401 || err.response?.status === 419) {
           store.setAuthStatus(null, false, true);
           this.closeModal();
         } else if (err.response?.status === 422) {

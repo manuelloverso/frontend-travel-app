@@ -1,4 +1,6 @@
 <script>
+import { store } from "../store";
+
 export default {
   name: "TripShow",
   props: {
@@ -6,6 +8,7 @@ export default {
   },
   data() {
     return {
+      store,
       daysDifferenceClass: null,
     };
   },
@@ -60,7 +63,10 @@ export default {
 </script>
 <template>
   <div class="container mx-auto trip-show mb-32">
-    <h2 class="text-center text-5xl font-semibold mb-8">{{ trip.name }}</h2>
+    <div class="thumbnail w-2/3 mx-auto mb-28">
+      <img :src="store.backendUrl + '/' + trip.image" alt="" />
+      <h2 class="text-emerald-400">{{ trip.name }}</h2>
+    </div>
 
     <div class="map-destination flex gap-3 items-center mb-12">
       <h5 class="w-1/2 text-3xl text-center">
@@ -100,4 +106,40 @@ export default {
     </div>
   </div>
 </template>
-<style scoped></style>
+<style scoped>
+.thumbnail {
+  position: relative;
+  transition: transform 0.2s ease;
+  & img {
+    aspect-ratio: 16/9;
+    width: 100%;
+    border-radius: 10px;
+    filter: grayscale(1);
+    object-fit: cover;
+    transition: filter 0.2s ease;
+  }
+
+  & h2 {
+    position: absolute;
+    white-space: nowrap;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    font-weight: 700;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover {
+    transform: scale(1.07);
+
+    & img {
+      filter: grayscale(0);
+    }
+
+    & h2 {
+      opacity: 0;
+    }
+  }
+}
+</style>

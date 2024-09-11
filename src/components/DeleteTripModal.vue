@@ -10,10 +10,11 @@ export default {
     OrangeBtn,
     AppLoader,
   },
+  emits: ["tripDeleted"],
   data() {
     return {
       store,
-      success: null,
+      success: false,
       error: null,
       isLoading: false,
     };
@@ -23,7 +24,7 @@ export default {
     async deleteTrip() {
       this.isLoading = true;
       this.error = null;
-      this.success = null;
+      this.success = false;
       try {
         const res = await axios.delete(
           `${store.backendUrl}/api/delete/trip/${store.deleteTripModal.tripObj.id}`
@@ -41,8 +42,8 @@ export default {
           this.error = res.data.response;
         }
       } catch (err) {
-        console.error(err);
-        if (err.response.status === 401 || err.response.status === 419) {
+        console.error(err.message);
+        if (err.response?.status === 401 || err.response?.status === 419) {
           store.setAuthStatus(null, false, true);
           this.closeModal();
         } else {
@@ -64,35 +65,29 @@ export default {
   <div class="delete-trip-modal puff-in-center">
     <AppLoader v-if="isLoading" :minHeight="300" />
     <div v-else>
-      <h3 class="text-green-500 text-2xl py-16" v-if="success">
-        Trip deleted successfully
-      </h3>
+      <h3 class="text-red-500 text-2xl mb-4" v-if="error">{{ error }}</h3>
+      <h2 class="text-3xl mb-6">
+        You're about to delete {{ store.deleteTripModal.tripObj?.name }}.
+      </h2>
+      <p class="text-xl mb-6">
+        Are you sure? {{ store.deleteTripModal.tripObj?.name }} will be
+        permanently deleted.
+      </p>
 
-      <template v-else>
-        <h3 class="text-red-500 text-2xl mb-4" v-if="error">{{ error }}</h3>
-        <h2 class="text-3xl mb-6">
-          You're about to delete {{ store.deleteTripModal.tripObj?.name }}.
-        </h2>
-        <p class="text-xl mb-6">
-          Are you sure? {{ store.deleteTripModal.tripObj?.name }} will be
-          permanently deleted.
-        </p>
-
-        <div class="actions flex items-center justify-between">
-          <button
-            class="bg-red-500 text-white p-3 text-lg rounded-lg hover:bg-red-700 transition-colors"
-            @click="deleteTrip"
-          >
-            Confirm
-          </button>
-          <OrangeBtn
-            @click="closeModal"
-            :isSubmit="false"
-            :isOutline="true"
-            text="Close"
-          />
-        </div>
-      </template>
+      <div class="actions flex items-center justify-between">
+        <button
+          class="bg-red-500 text-white p-3 text-lg rounded-lg hover:bg-red-700 transition-colors"
+          @click="deleteTrip"
+        >
+          Confirm
+        </button>
+        <OrangeBtn
+          @click="closeModal"
+          :isSubmit="false"
+          :isOutline="true"
+          text="Close"
+        />
+      </div>
     </div>
   </div>
 </template>

@@ -61,6 +61,7 @@
 
 ## TODOs
 
+- fix edit trip form
 - handle edit forms old values and crud redirects
 - style header dropdown
 - add images for stops and trips(use modals to show them and maybe to add them too)
@@ -80,3 +81,5 @@
 - on Laravel add all api routes in the auth:sanctum middlewere and try to remove the Auth::user() from the methods and see how it reacts.
 - add back to top button
 - edit and style login and register page both when the user is logged and when he isnt
+- style and order old, current and future trips
+- re-style stop card
